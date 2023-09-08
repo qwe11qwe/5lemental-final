@@ -1,13 +1,25 @@
-import { homeLine, plus, heartLine, userLine } from '@/assets/icons/svg-icons.js';
+import { homeLine, plus, heartLine, userLine, homeFill, heartFill, userFill } from '@/assets/icons/svg-icons.js';
 import styles from './Component.module.css';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function NavBar () {
+  const { pathname } = useLocation();
+  const [homeIcon, setHomeIcon] = useState('');
+
+  useEffect(
+    () =>
+      pathname === '/'
+        ? setHomeIcon(homeFill)
+        : setHomeIcon(homeLine),
+      [pathname]
+  );
 
   return(
     <nav className={styles.nav}>
       {/* <NavLink to='/'> */}
         <div className={styles.item}>
-          <img src={homeLine} className={styles.icon}/>
+          <img src={homeIcon} className={styles.icon}/>
           <span className={styles.text}>홈</span>
         </div>
       {/* </NavLink> */}

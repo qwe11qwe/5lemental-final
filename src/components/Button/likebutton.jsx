@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { heartLine } from '@/assets/icons/svg-icons';
 
 function LikeButton({ count = 0 }) {
   const [likes, setLikes] = useState(count);

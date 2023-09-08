@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.jsx'],
-  theme: {},
+  theme: {
   extend: {
     fontFamily: {
       nanum: ['NanumSquare'],
@@ -19,5 +19,6 @@ export default {
       '--fridge-red': '#F83319',
     },
   },
+},
   plugins: [],
 };

@@ -1,8 +1,11 @@
+import SignIn from './pages/SignIn';
+
 function App() {
-  return 
-  <>
-  
-  </>;
+  return (
+    <>
+      <SignIn></SignIn>
+    </>
+  );
 }
 
 export default App;

@@ -16,7 +16,7 @@
     "javascript": "javascriptreact"
   },
   "files.associations": {
-    "*.jsx": "javascriptreact",
+    "*.jsx": "javascriptreact"
   },
   "tailwindCSS.includeLanguages": {
     "plaintext": "html",
@@ -40,6 +40,11 @@
       "description": "[remove] 기능 및 코드 제거"
     },
     {
+      "emoji": "✏️",
+      "code": ":pencil:",
+      "description": "[modify] 기능 및 코드 수정"
+    },
+    {
       "emoji": "🎨",
       "code": ":art:",
       "description": "[styling] 코드 스타일링"
@@ -53,6 +58,11 @@
       "emoji": "➖",
       "code": ":heavy_minus_sign:",
       "description": "[remove] 파일 제거"
+    },
+    {
+      "emoji": "📦",
+      "code": ":box:",
+      "description": "[move] 파일 이동"
     },
     {
       "emoji": "🏗️",

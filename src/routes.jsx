@@ -14,25 +14,24 @@ import RecipeLiked from "./pages/RecipeLiked";
 import Search from "./pages/Search";
 import SearchResult from "./pages/SearchResult";
 import SignUp from "./pages/SignUp";
-import Start from "./pages/Start";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
       <>
         <Route path="/" element={<RootLayout />}>
-          <Route index element={< Home/>} />
-          <Route path="signin" element={< AddIngredients />} />
-          <Route path="signin" element={< FridgeMenu />} />
-          <Route path="signin" element={< MenuList />} />
-          <Route path="signin" element={< MyFridge />} />
-          <Route path="signin" element={< MyProfile />} />
-          <Route path="signin" element={< RecipeDetail />} />
-          <Route path="signin" element={< RecipeLiked />} />
-          <Route path="signin" element={< Search />} />
-          <Route path="signin" element={< SearchResult />} />
+          <Route index element={< start/>} />
+          <Route path="addIngredients" element={< AddIngredients />} />
+          <Route path="fridgemenu" element={< FridgeMenu />} />
+          <Route path="home" element={< Home />} />
+          <Route path="menulist" element={< MenuList />} />
+          <Route path="myfridge" element={< MyFridge />} />
+          <Route path="myprofile" element={< MyProfile />} />
+          <Route path="recipedetail" element={< RecipeDetail />} />
+          <Route path="recipeliked" element={< RecipeLiked />} />
+          <Route path="search" element={< Search />} />
+          <Route path="searchresult" element={< SearchResult />} />
           <Route path="signin" element={< SignIn />} />
-          <Route path="signin" element={< SignUp />} />
-          <Route path="signin" element={< Start />} />
+          <Route path="signup" element={< SignUp />} />
         </Route>
       </>
   )

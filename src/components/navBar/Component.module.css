@@ -1,0 +1,15 @@
+.nav{
+  @apply flex justify-around text-center fixed left-0 right-0 bottom-0
+}
+
+.item {
+  @apply w-1/4 h-16 flex items-center justify-center flex-col;
+}
+
+.icon {
+  @apply w-7 h-auto;
+}
+
+.text{
+  @apply text-sm -text--fridge-nav-gray;
+}

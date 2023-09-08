@@ -12,6 +12,7 @@ export default {
       'fridge-secondary': '#0E3348',
       'fridge-gray': '#D9D9D9',
       'fridge-input-gray': '#B0B0B0',
+      'fridge-nav-gray': '#666565',
       'fridge-black': '#000000',
       'fridge-white': '#FFFFFF',
       'fridge-skyblue': '#DCF2FF',

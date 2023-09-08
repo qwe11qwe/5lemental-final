@@ -9,7 +9,7 @@ function NavBar () {
 
   useEffect(
     () =>
-      pathname === '/'
+      pathname === '/home'
         ? setHomeIcon(homeFill)
         : setHomeIcon(homeLine),
       [pathname]

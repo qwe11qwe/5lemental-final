@@ -1,24 +1,84 @@
+import pb from '@/api/pocketbase';
 import InputBox from '@/components/InputBox';
+import { useState } from 'react';
+import debounce from '@/utils/debounce';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState({
+    id: '',
+    password: '',
+  });
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+
+    const { id, password } = formState;
+
+    try {
+      const response = await pb
+        .collection('users')
+        .authWithPassword(id, password);
+
+      console.log(response);
+      console.log('성공');
+      navigate('/home');
+      // console.log(pb.authStore.token);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInput = debounce((e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+    console.log(setFormState);
+  }, 400);
+
   return (
     <>
-      <div>
-        <h2>로그인</h2>
-
-        <form>
-          <InputBox type="text" name="이름" />
-          <InputBox type="email" name="이름" />
-          <button>하하</button>
-        </form>
-
-        <div className="flex justify-center mt-8 border-t border-slate-200 pt-8 dark:border-slate-200/30">
-          {/* <Link
-            to="/signup"
-            className="dark:text-zinc-500 dark:hover:text-zinc-300"
-          >
-            회원가입
-          </Link> */}
+      <div className="wrapper m-auto ">
+        <div className="loginContainer -bg--fridge-secondary">
+          <div className="pt-[130px] pb-[15px] h-[188px] mb-[52px]">
+            <h1 className="text-[35px] -text--fridge-black font-dohyeon font-normal text-center">
+              로그인
+            </h1>
+          </div>
+        </div>
+        <div className="formContainer px-[20px]">
+          <form onSubmit={handleSignIn}>
+            <label
+              htmlFor="id"
+              className="text-[15px] -text--fridge-black font-dohyeon mt-3 mb-1 block"
+            >
+              아이디
+              <InputBox
+                id="id"
+                type="text"
+                name="id"
+                placeholder="아이디를 입력해주세요."
+                onChange={handleInput}
+              />
+            </label>
+            <label
+              htmlFor="password"
+              className="text-[15px] -text--fridge-black font-dohyeon mt-3 mb-1 block"
+            >
+              비밀번호
+              <InputBox
+                id="password"
+                type="password"
+                name="password"
+                placeholder="비밀번호를 입력해주세요."
+                onChange={handleInput}
+              />
+            </label>
+            <button type="submit">로그인버튼</button>
+          </form>
         </div>
       </div>
     </>

@@ -14,12 +14,13 @@ import RecipeLiked from './pages/RecipeLiked';
 import Search from './pages/Search';
 import SearchResult from './pages/SearchResult';
 import SignUp from './pages/SignUp';
+import Start from './pages/Start';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<RootLayout />}>
-        <Route index element={<start />} />
+        <Route index element={<Start />} />
         <Route path="addingredients" element={<AddIngredients />} />
         <Route path="fridgemenu" element={<FridgeMenu />} />
         <Route path="home" element={<Home />} />

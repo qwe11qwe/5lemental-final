@@ -42,15 +42,15 @@ function SignIn() {
 
   return (
     <>
-      <div className="wrapper m-auto flex justify-center flex-wrap">
-        <div className="loginContainer -bg--fridge-secondary w-screen">
-          <div className="pt-[100px] pb-[15px] h-[188px]">
-            <h1 className="text-[35px] -text--fridge-black font-dohyeon font-normal text-center">
-              로그인
-            </h1>
-          </div>
+      <div className="loginContainer m-auto flex justify-center flex-wrap flex-col -bg--fridge-secondary w-screen">
+        <div className="pt-[100px] pb-[15px] h-[188px]">
+          <h1 className="text-[35px] -text--fridge-black font-dohyeon font-normal text-center">
+            로그인
+          </h1>
         </div>
-        <div className="formContainer px-[20px] w-full">
+      </div>
+      <div className="formContainer w-full flex justify-center items-center flex-wrap flex-col">
+        <div className="px-[20px] w-full max-w-[820px]">
           <form onSubmit={handleSignIn}>
             <label
               htmlFor="id"
@@ -81,13 +81,14 @@ function SignIn() {
             <Button type="submit">로그인</Button>
           </form>
         </div>
+
+        <Link
+          to="/signup"
+          className="w-full max-w-[820px] -text--fridge-black text-[10px] font-nanum decoration-solid flex items-end mt-2 px-[20px] underline justify-end"
+        >
+          아직 회원이 아니신가요?
+        </Link>
       </div>
-      <Link
-        to="/signup"
-        className="-text--fridge-black text-[10px] font-nanum decoration-solid grid justify-items-end mt-2 px-[20px] underline"
-      >
-        아직 회원이 아니신가요?
-      </Link>
     </>
   );
 }

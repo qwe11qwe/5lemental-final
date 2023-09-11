@@ -1,7 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+
 function Start() {
+  const navigate = useNavigate();
+  const handleEntry = () => {
+    navigate('signin');
+  };
   return (
     <>
-      <div className="wrapper w-screen h-screen -bg--fridge-gray px-[26px] py-[52px] flex flex-nowrap flex-col">
+      <div
+        className="wrapper w-screen h-screen -bg--fridge-gray px-[26px] py-[52px] flex flex-nowrap flex-col"
+        onClick={handleEntry}
+        onTouchEnd={handleEntry}
+      >
         <div className="topFridge -bg--fridge-white rounded-t-[15px] mb-[15px] min-h-[205px] pt-[22px] ">
           <div className="titleContainer flex justify-center items-center flex-col h-full">
             <div className="postItContainer bg-[url('@/assets/images/postIt_start.png')] bg-no-repeat pt-5 pl-7">

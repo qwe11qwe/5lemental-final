@@ -9,7 +9,6 @@ function NavBar () {
   const [ heartIcon, setHeartIcon ] = useState('');
   const [ userIcon, setUserIcon ] = useState('');
 
-
   useEffect(
     () =>
       pathname === '/home'
@@ -34,24 +33,35 @@ function NavBar () {
       [pathname]
   );
 
+  if(
+      pathname === '/' ||
+      pathname === '/signin' ||
+      pathname === '/signup'
+   )
+    {
+      return null;
+    }
+
   return(
     <nav className={styles.nav}>
-      <Link to='/home' className={styles.item}>
-        <img src={homeIcon} className={styles.icon}/>
-        <span className={styles.text}>홈</span>
-      </Link>
-      <Link to='/addIngredients' className={styles.item}>
-          <img src={plus} className={styles.icon}/>
-          <span className={styles.text}>재료추가</span>
-      </Link>
-      <Link to='/recipeliked' className={styles.item}>
-        <img src={heartIcon} className={styles.icon}/>
-        <span className={styles.text}>좋아요</span>
-      </Link>
-      <Link to='/myprofile' className={styles.item}>
-        <img src={userIcon} className={styles.icon}/>
-        <span className={styles.text}>프로필</span>
-      </Link>
+      <div className={styles.items}>
+        <Link to='/home' className={styles.item}>
+          <img src={homeIcon} className={styles.icon}/>
+          <span className={styles.text}>홈</span>
+        </Link>
+        <Link to='/addIngredients' className={styles.item}>
+            <img src={plus} className={styles.icon}/>
+            <span className={styles.text}>재료추가</span>
+        </Link>
+        <Link to='/recipeliked' className={styles.item}>
+          <img src={heartIcon} className={styles.icon}/>
+          <span className={styles.text}>좋아요</span>
+        </Link>
+        <Link to='/myprofile' className={styles.item}>
+          <img src={userIcon} className={styles.icon}/>
+          <span className={styles.text}>프로필</span>
+        </Link>
+      </div>
     </nav>
   )
 }

@@ -9,7 +9,6 @@ function NavBar () {
   const [ heartIcon, setHeartIcon ] = useState('');
   const [ userIcon, setUserIcon ] = useState('');
 
-
   useEffect(
     () =>
       pathname === '/home'
@@ -33,6 +32,15 @@ function NavBar () {
         : setUserIcon(userLine),
       [pathname]
   );
+
+  if(
+      pathname === '/' ||
+      pathname === '/signin' ||
+      pathname === '/signup'
+   )
+    {
+      return null;
+    }
 
   return(
     <nav className={styles.nav}>

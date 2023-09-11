@@ -7,12 +7,12 @@ function Start() {
   };
   return (
     <>
-      <div className="wapper w-screen h-screen px-[26px] py-[52px] -bg--fridge-gray  flex flex-nowrap flex-col ">
-        <div
-          className="container max-w-[400px] mx-auto flex flex-nowrap flex-col"
-          onClick={handleEntry}
-          onTouchEnd={handleEntry}
-        >
+      <div
+        className="wapper w-screen h-screen px-[26px] py-[52px] -bg--fridge-gray  flex flex-nowrap flex-col "
+        onClick={handleEntry}
+        onTouchEnd={handleEntry}
+      >
+        <div className="container max-w-[400px] mx-auto flex flex-nowrap flex-col">
           <div className="topFridge -bg--fridge-white rounded-t-[15px] mb-[15px] min-h-[205px] pt-[22px] ">
             <div className="titleContainer flex justify-center items-center flex-col h-full">
               <div className="postItContainer bg-[url('@/assets/images/postIt_start.png')] bg-no-repeat pt-5 pl-7">

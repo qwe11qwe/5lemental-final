@@ -1,5 +1,29 @@
-function Start () {
+function Start() {
+  return (
+    <>
+      <div className="wrapper w-screen h-screen -bg--fridge-gray px-[26px] py-[52px] flex flex-nowrap flex-col">
+        <div className="topFridge -bg--fridge-white rounded-t-[15px] mb-[15px] min-h-[205px] pt-[22px] ">
+          <div className="titleContainer flex justify-center items-center flex-col h-full">
+            <div className="postItContainer bg-[url('@/assets/images/postIt_start.png')] bg-no-repeat pt-5 pl-7">
+              <h1 className="tracking-[0.2em] font-dohyeon text-[50px] -text--fridge-black ">
+                비우자
+              </h1>
+              <h1 className="tracking-[0.2em] font-dohyeon text-[50px] -text--fridge-black ">
+                냉장고
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div className="bottomFridge  -bg--fridge-white rounded-b-[15px] min-h-[244px] relative">
+          <div className="FridgeHandle w-[14px] h-[52px] -bg--fridge-gray rounded-[15px] absolute top-[20px] right-[24px]"></div>
+        </div>
 
+        <p className="-text--fridge-nav-gray font-dohyeon text-[15px] block mt-[9px] mx-auto">
+          화면을 터치해 냉장고를 열어주세요!
+        </p>
+      </div>
+    </>
+  );
 }
 
-export default Start
+export default Start;

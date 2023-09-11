@@ -1,5 +1,5 @@
 .nav{
-  @apply flex justify-around text-center fixed left-0 right-0 bottom-0
+  @apply flex justify-around text-center fixed left-0 right-0 bottom-0 bg-white
     after:content-['']
     after:absolute
     after:top-0

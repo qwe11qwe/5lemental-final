@@ -1,11 +1,14 @@
 import { homeLine, plus, heartLine, userLine, homeFill, heartFill, userFill } from '@/assets/icons/svg-icons.js';
 import styles from './Component.module.css';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 function NavBar () {
   const { pathname } = useLocation();
-  const [homeIcon, setHomeIcon] = useState('');
+  const [ homeIcon, setHomeIcon ] = useState('');
+  const [ heartIcon, setHeartIcon ] = useState('');
+  const [ userIcon, setUserIcon ] = useState('');
+
 
   useEffect(
     () =>
@@ -15,32 +18,40 @@ function NavBar () {
       [pathname]
   );
 
+  useEffect(
+    () =>
+      pathname === '/recipeliked'
+        ? setHeartIcon(heartFill)
+        : setHeartIcon(heartLine),
+      [pathname]
+  );
+
+  useEffect(
+    () =>
+      pathname === '/myprofile'
+        ? setUserIcon(userFill)
+        : setUserIcon(userLine),
+      [pathname]
+  );
+
   return(
     <nav className={styles.nav}>
-      {/* <NavLink to='/'> */}
-        <div className={styles.item}>
-          <img src={homeIcon} className={styles.icon}/>
-          <span className={styles.text}>홈</span>
-        </div>
-      {/* </NavLink> */}
-      {/* <NavLink to='/'> */}
-        <div className={styles.item}>
+      <Link to='/home' className={styles.item}>
+        <img src={homeIcon} className={styles.icon}/>
+        <span className={styles.text}>홈</span>
+      </Link>
+      <Link to='/addIngredients' className={styles.item}>
           <img src={plus} className={styles.icon}/>
           <span className={styles.text}>재료추가</span>
-        </div>
-      {/* </NavLink> */}
-      {/* <NavLink to='/'> */}
-      <div className={styles.item}>
-        <img src={heartLine} className={styles.icon}/>
+      </Link>
+      <Link to='/recipeliked' className={styles.item}>
+        <img src={heartIcon} className={styles.icon}/>
         <span className={styles.text}>좋아요</span>
-      </div>
-      {/* </NavLink> */}
-      {/* <NavLink to='/'> */}
-      <div className={styles.item}>
-        <img src={userLine} className={styles.icon}/>
+      </Link>
+      <Link to='/myprofile' className={styles.item}>
+        <img src={userIcon} className={styles.icon}/>
         <span className={styles.text}>프로필</span>
-      </div>
-      {/* </NavLink> */}
+      </Link>
     </nav>
   )
 }

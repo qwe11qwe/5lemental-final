@@ -10,23 +10,44 @@ export default function IngredientItemGaro({ item , user ,  stat }){
     //! user : 현재 회원 정보 출력(매번 출력되면 너무 소모값 클거같은데 처음 한번만 가져오게 할 수는 없을까)
     //! stat : item재료를 user회원이 가지고 있는지 정보(가지고 있으면 1)
 
-
-    function handle(stat){
+    async function handle(stat){
         if(stat == 1){
-            console.log('stat은 1 입니다.');
+            //console.log('stat은 1 입니다.');
             //빼주기
+            try {
+                await client.collection('users').update(user.id, {
+                  'ingredients_keys-': item.id,
+                });
+                // 앱 상태 업데이트
+                // Zustand 사용자의 재료 변경사항을 화면에 반영
+                // 재료 목록 삭제
+                // removeUserIngredient(item.id);
+              } catch (error) {
+                console.error(error);
+              }
         }
         else if(stat == 0){
-            console.log('stat은 0 입니다.');
+            //console.log('stat은 0 입니다.');
+            //console.log(user); //? g1j7klbnj716gkm
+            //console.log(item.id); //? g1j7klbnj716gkm
+            //console.log(user.ingredients_keys); //? (2) ['sg7btfzsqn47ogi', '1xrhb5plqjkiqzg']
             //더해주기
+            try {
+                await client.collection('users').update(user.id, {
+                  'ingredients_keys+': item.id,
+                });
+                // 앱 상태 업데이트
+                // Zustand 사용자의 재료 변경사항을 화면에 반영
+                // 재료 목록 추가
+                // addUserIngredient(item.id);
+              } catch (error) {
+                console.error(error);
+            }
         }
     }
 
-
-    //user에는 현재 dummy데이터 들어있음
     return(
         <li key={item.id} className='-bg--fridge-gray w-32 h-14 rounded-xl flex flex-row items-center' onClick={()=>{
-            //console.log(item.name,'는 ', stat , ' 상태 입니다.');
             handle(stat);
 
             //stat이 0이면 user한테 없는거고 1이면 user한테 있는거임

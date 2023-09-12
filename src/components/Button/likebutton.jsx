@@ -16,9 +16,7 @@ function LikeButton({ count = 0 }) {
 
   return (
     <div>
-      <button onClick={isPressed ? decrementLikes : incrementLikes}>
-        좋아요
-      </button>
+      <button onClick={isPressed ? decrementLikes : incrementLikes}>❤️</button>
       <span>{likes}</span>
     </div>
   );

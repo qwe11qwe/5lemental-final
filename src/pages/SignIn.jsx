@@ -1,9 +1,9 @@
-import pb from '@/api/pocketbase';
 import InputBox from '@/components/InputBox';
 import { useState } from 'react';
 import debounce from '@/utils/debounce';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/button/Button';
+import useAuthStore from '@/store/auth';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -12,22 +12,17 @@ function SignIn() {
     password: '',
   });
 
+  const { signIn } = useAuthStore();
+
   const handleSignIn = async (e) => {
     e.preventDefault();
-
     const { id, password } = formState;
 
     try {
-      const response = await pb
-        .collection('users')
-        .authWithPassword(id, password);
-
-      console.log(response);
-      console.log('성공');
-      navigate('/home');
-      // console.log(pb.authStore.token);
+      signIn(id, password).then(() => navigate('/home'));
     } catch (error) {
       console.error(error);
+      setFormState({ id: '', password: '' });
     }
   };
 
@@ -37,7 +32,6 @@ function SignIn() {
       ...formState,
       [name]: value,
     });
-    console.log(setFormState);
   }, 400);
 
   return (

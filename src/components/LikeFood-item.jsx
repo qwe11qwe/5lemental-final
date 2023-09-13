@@ -1,4 +1,4 @@
-import { getPbImageURL } from '@/utils/';
+import { getPbImageURL } from '@/utils/getPblmageURL';
 import client from '@/api/pocketbase';
 
 export default function cookstItem({ item, user, stat }) {
@@ -36,6 +36,8 @@ export default function cookstItem({ item, user, stat }) {
     }
   }
 
+  console.log(item);
+
   return (
     <li
       key={item.id}
@@ -45,6 +47,7 @@ export default function cookstItem({ item, user, stat }) {
     >
       <figure>
         <img src={getPbImageURL(item, 'photo')} alt="" />
+        {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
       </figure>
       <div className="w-20 w-flex flex-row justify-center">
         <span>{item.name}</span>

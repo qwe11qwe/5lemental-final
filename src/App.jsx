@@ -1,8 +1,10 @@
 import LikeButton from './components/Button/likebutton';
+import FoodlistButton from './components/LikeFood';
 
 function App() {
   return (
     <div>
+      <FoodlistButton />
       <LikeButton></LikeButton>
       <LikeButton count={11}></LikeButton>
       <LikeButton count={13}></LikeButton>

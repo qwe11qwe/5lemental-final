@@ -16,7 +16,12 @@ function LikeButton({ count = 0 }) {
 
   return (
     <div>
-      <button onClick={isPressed ? decrementLikes : incrementLikes}>❤️</button>
+      <button
+        onClick={isPressed ? decrementLikes : incrementLikes}
+        className="h-40"
+      >
+        ❤️
+      </button>
       <span>{likes}</span>
     </div>
   );

@@ -4,6 +4,7 @@ import debounce from '@/utils/debounce';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/button/Button';
 import useAuthStore from '@/store/auth';
+import { useEffect } from 'react';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -11,20 +12,10 @@ function SignIn() {
     id: '',
     password: '',
   });
+  const [failAlert, setFailAlert] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const { signIn } = useAuthStore();
-
-  const handleSignIn = async (e) => {
-    e.preventDefault();
-    const { id, password } = formState;
-
-    try {
-      signIn(id, password).then(() => navigate('/home'));
-    } catch (error) {
-      console.error(error);
-      setFormState({ id: '', password: '' });
-    }
-  };
 
   const handleInput = debounce((e) => {
     const { name, value } = e.target;
@@ -33,6 +24,25 @@ function SignIn() {
       [name]: value,
     });
   }, 400);
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const { id, password } = formState;
+
+    try {
+      signIn(id, password).then(() => navigate('/home'));
+    } catch (error) {
+      console.error('로그인 실패');
+    } finally {
+      setIsError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (isError) {
+      setFailAlert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    }
+  }, [isError]);
 
   return (
     <>
@@ -73,12 +83,15 @@ function SignIn() {
               />
             </label>
             <Button type="submit">로그인</Button>
+            <p className="-text--fridge-red font-nanum text-xs mt-2 text-center">
+              {failAlert}
+            </p>
           </form>
         </div>
 
         <Link
           to="/signup"
-          className="w-full max-w-[820px] -text--fridge-black text-[10px] font-nanum decoration-solid flex items-end mt-2 px-[20px] underline justify-end"
+          className="w-full max-w-[820px] -text--fridge-black text-xs font-nanum decoration-solid flex items-end mt-2 mx-[20px] underline justify-end"
         >
           아직 회원이 아니신가요?
         </Link>

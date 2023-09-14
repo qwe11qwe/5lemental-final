@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/button/Button';
 import useAuthStore from '@/store/auth';
 import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -12,10 +14,8 @@ function SignIn() {
     id: '',
     password: '',
   });
-  const [failAlert, setFailAlert] = useState(false);
-  const [isError, setIsError] = useState(false);
 
-  const { signIn } = useAuthStore();
+  const { isValid, signIn } = useAuthStore();
 
   const handleInput = debounce((e) => {
     const { name, value } = e.target;
@@ -30,23 +30,35 @@ function SignIn() {
     const { id, password } = formState;
 
     try {
-      signIn(id, password).then(() => navigate('/home'));
+      await signIn(id, password);
     } catch (error) {
-      console.error('로그인 실패');
-    } finally {
-      setIsError(true);
+      toast.error('아이디 또는 비밀번호가 일치하지 않습니다.');
     }
   };
 
   useEffect(() => {
-    if (isError) {
-      setFailAlert('아이디 또는 비밀번호가 일치하지 않습니다.');
+    if (isValid) {
+      navigate('/home');
+      // setFormState({ id: '', password: '' });
     }
-  }, [isError]);
+  }, [isValid, navigate]);
 
   return (
     <>
       <div className="loginContainer m-auto flex justify-center flex-wrap flex-col -bg--fridge-secondary w-screen">
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          limit={1}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <div className="pt-[100px] pb-[15px] h-[188px]">
           <h1 className="text-[35px] -text--fridge-black font-dohyeon font-normal text-center">
             로그인
@@ -83,15 +95,12 @@ function SignIn() {
               />
             </label>
             <Button type="submit">로그인</Button>
-            <p className="-text--fridge-red font-nanum text-xs mt-2 text-center">
-              {failAlert}
-            </p>
           </form>
         </div>
 
         <Link
           to="/signup"
-          className="w-full max-w-[820px] -text--fridge-black text-xs font-nanum decoration-solid flex items-end mt-2 mx-[20px] underline justify-end"
+          className="w-full max-w-[820px] -text--fridge-black text-xs font-nanum decoration-solid flex items-end mt-2 px-[20px] underline justify-end"
         >
           아직 회원이 아니신가요?
         </Link>

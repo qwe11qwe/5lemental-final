@@ -47,7 +47,7 @@ function searchMenu (e) {
   return(
     <>
     <div className='w-full max-w-[820px] m-auto'>
-      <div className='flex mt-8 ml-[20px] relative'>
+      <div className='flex mt-10 ml-[20px] relative'>
         <input
           type='text'
           placeholder='메뉴를 검색해주세요.'

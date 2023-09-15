@@ -47,6 +47,9 @@ const toggleInputSearch = () => {
           placeholder='메뉴를 검색해주세요.'
           className="w-11/12 h-7 pl-1 placeholder:-text--fridge-input-gray font-nanum border-b-2 -border--fridge-gray focus:outline-none"
           ref={inputRef}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') { toggleInputSearch(); }
+          }}
         />
         <button
           type='button'

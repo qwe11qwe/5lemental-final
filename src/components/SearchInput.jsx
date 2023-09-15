@@ -27,7 +27,8 @@ const toggleInputSearch = () => {
   const searchTerm = inputRef.current.value.trim();
 
   if (searchTerm) {
-    setSearchResult(cooks.filter(() => cooks.includes(searchTerm)));
+    setSearchResult(cooks.filter((cook) => cook.includes(searchTerm)));
+    inputRef.current.value='';
   } else {
     setSearchResult([]);
   }

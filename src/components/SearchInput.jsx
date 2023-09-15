@@ -24,10 +24,12 @@ useEffect(() => {
 }, []);
 
 const toggleInputSearch = () => {
-  if (inputRef.current.value) {
-    setSearchResult(cooks.filter(() => cooks.includes(inputRef.current.value)));
+  const searchTerm = inputRef.current.value.trim();
+
+  if (searchTerm) {
+    setSearchResult(cooks.filter(() => cooks.includes(searchTerm)));
   } else {
-    setSearchResult('');
+    setSearchResult([]);
   }
 }
 

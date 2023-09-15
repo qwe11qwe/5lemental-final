@@ -43,6 +43,7 @@ const toggleInputSearch = () => {
       <div className='flex mt-10 ml-[20px] relative'>
         <input
           type='text'
+          role='searchbox'
           placeholder='메뉴를 검색해주세요.'
           className="w-11/12 h-7 pl-1 placeholder:-text--fridge-input-gray font-nanum border-b-2 -border--fridge-gray focus:outline-none"
           ref={inputRef}
@@ -51,6 +52,7 @@ const toggleInputSearch = () => {
           type='button'
           className='w-5 h-5 bg-search-icon my-auto ml-2 absolute right-[9%]'
           onClick={toggleInputSearch}
+          aria-label='검색'
           >
         </button>
       </div>

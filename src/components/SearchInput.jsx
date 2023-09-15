@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 // 다른 컴포넌트에서 가져올 때 아래의 { } 안에 쓰는 것이다. 저장된 정보를 MenuBox 컴포넌트에 
 function SearchInput () {
 
-const [search, setSearch] = useState([]);
+const [cooks, setCooks] = useState([]);
 const inputRef = useRef('');
 const [searchResult, setSearchResult] = useState([]);
 
@@ -12,25 +12,25 @@ useEffect(() => {
   async function fetchCookList() {
     try {
       const cookList = await pb.collection('cooks').getFullList();
-      setSearch(cookList);
+      setCooks(cookList);
 
       let menuList = [];
       for(let i = 0 ; i < cookList.length ; i++){
         menuList.push(cookList[i].name);
       }
-      setSearch(menuList)
+      setCooks(menuList)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
   fetchCookList();
 }, []);
-console.log(search)
+console.log(cooks)
 console.log(inputRef.current.value)
 
 const toggleInputSearch = () => {
   if (inputRef.current.value) {
-    setSearchResult(search.filter(() => search.includes(inputRef.current.value)));
+    setSearchResult(cooks.filter(() => cooks.includes(inputRef.current.value)));
   } else {
     setSearchResult('');
   }

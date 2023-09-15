@@ -60,12 +60,11 @@ const toggleInputSearch = () => {
         </button>
       </div>
       <div className='mt-4'>
-      {searchResult.toSorted().map(
-        (cook, index) => 
+      {searchResult.toSorted().map((cook, index) => 
           (
-            <li key={index} className='ml-5 text-sm'>
-              <span>{searchResult}</span>
-            </li>
+            <ul key={index} className='ml-5 text-sm'>
+              <li>{cook}</li>
+            </ul>
           )
       )}
       </div>

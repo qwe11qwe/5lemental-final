@@ -13,6 +13,7 @@ export default {
         '--fridge-gray': '#D9D9D9',
         '--fridge-input-gray': '#B0B0B0',
         '--fridge-nav-gray': '#666565',
+        '--fridge-bg-gray': '#F5F5F5',
         '--fridge-black': '#000423',
         '--fridge-white': '#FFFFFF',
         '--fridge-skyblue': '#DCF2FF',

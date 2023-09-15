@@ -4,8 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 // 다른 컴포넌트에서 가져올 때 아래의 { } 안에 쓰는 것이다. 저장된 정보를 MenuBox 컴포넌트에 
 function SearchInput () {
 
-const [cooks, setCooks] = useState([]);
+// 검색 필드 요소 참조
 const inputRef = useRef('');
+// 검색 요소 집합 ( 서버에서 데이터 가져오기 )
+const [cooks, setCooks] = useState([]);
+// 검색된 결과 집합 ( 사용자 검색 요청 시 처리 )
 const [searchResult, setSearchResult] = useState([]);
 
 useEffect(() => {

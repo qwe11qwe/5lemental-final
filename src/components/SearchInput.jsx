@@ -15,21 +15,13 @@ useEffect(() => {
   async function fetchCookList() {
     try {
       const cookList = await pb.collection('cooks').getFullList();
-      setCooks(cookList);
-
-      let menuList = [];
-      for(let i = 0 ; i < cookList.length ; i++){
-        menuList.push(cookList[i].name);
-      }
-      setCooks(menuList)
+      setCooks(cookList.map((cook) => cook.name));
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
   fetchCookList();
 }, []);
-console.log(cooks)
-console.log(inputRef.current.value)
 
 const toggleInputSearch = () => {
   if (inputRef.current.value) {

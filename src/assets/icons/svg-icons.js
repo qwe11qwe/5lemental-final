@@ -6,7 +6,7 @@ export { default as userFill } from './user-fill.svg';
 export { default as userLine } from './user-line.svg';
 export { default as plus } from './plus.svg';
 export { default as x } from './x.svg';
-export { default as serach } from './search.svg';
+export { default as search } from './search.svg';
 export { default as checkboxCircleLight } from './checkbox-circle-light.svg';
 export { default as checkboxCircleDark } from './checkbox-circle-dark.svg';
 export { default as heartLinePri } from './heart-line-primary.svg';

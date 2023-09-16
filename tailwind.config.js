@@ -18,6 +18,9 @@ export default {
         '--fridge-skyblue': '#DCF2FF',
         '--fridge-red': '#F83319',
       },
+      backgroundImage: {
+        'search-icon': "url('./src/assets/icons/search.svg')",
+      }
     },
   },
   plugins: [],

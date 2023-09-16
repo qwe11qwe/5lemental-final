@@ -8,11 +8,13 @@ export function Button({
   ...restProps
 }) {
   const navigate = useNavigate();
+
   const handleNavigate = () => {
-    navigate(navigateTo);
-    console.log(navigateTo);
-    console.log('haha');
+    if (type === 'button') {
+      navigate(navigateTo);
+    }
   };
+
   return (
     <button
       type={type}

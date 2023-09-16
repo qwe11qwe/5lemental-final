@@ -3,8 +3,11 @@ import { Button } from '@/components/button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import useAuthStore from '@/store/auth';
 
 function MyProfile() {
+  const user = useAuthStore((state) => state.user);
+  console.log(user);
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate('/myfridge');
@@ -20,14 +23,14 @@ function MyProfile() {
         // PocketBase 에서 닉네임 가져오기
         const nameResponse = await pb
           .collection('users')
-          .getList(1, 10, { filter: `username = "qwer1212"` });
+          .getList(1, 10, { filter: `id = "${user}"` });
         setProfileName(nameResponse.items[0].name);
         console.log(profileName);
 
         // PocketBase 에서 프로필 이미지 가져오기
         const imageResponse = await pb
           .collection('users')
-          .getList(1, 10, { filter: `username = "qwer1212"` });
+          .getList(1, 10, { filter: `id = "${user}"` });
         setFileName(imageResponse.items[0].avatar);
         setProfileImage(
           pb.files.getUrl(imageResponse.items[0], fileName, {
@@ -40,7 +43,7 @@ function MyProfile() {
       }
     };
     handleProfile();
-  }, [profileName, profileImage, fileName]);
+  }, [profileName, profileImage, fileName, user]);
 
   return (
     <>

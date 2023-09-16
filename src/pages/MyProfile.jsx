@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import useAuthStore from '@/store/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyProfile() {
-  const user = useAuthStore((state) => state.user);
+  const { user, signOut } = useAuthStore();
   console.log(user);
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -16,6 +18,20 @@ function MyProfile() {
   const [profileName, setProfileName] = useState('');
   const [fileName, setFileName] = useState('');
   const [profileImage, setProfileImage] = useState('');
+
+  const handleSignOut = async (e) => {
+    e.preventDefault();
+    try {
+      await signOut().then(() => {
+        toast.info('로그아웃 되었습니다.');
+        setTimeout(() => {
+          navigate('/signin');
+        }, 3000);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const handleProfile = async () => {
@@ -48,6 +64,18 @@ function MyProfile() {
   return (
     <>
       <div className="wapper w-screen px-[26px] pt-[25px] -bg--fridge-white flex flex-nowrap flex-col">
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <div className="container max-w-[400px] mx-auto flex flex-nowrap flex-col">
           <div className="topFridge bg-[#F5F5F5] rounded-t-[15px] mb-[15px] min-h-[123px] px-[22px] py-4 flex flex-nowrap justify-center items-center gap-[20px]">
             <img
@@ -80,7 +108,10 @@ function MyProfile() {
               </Button>
             </div>
           </div>
-          <button className="logOut text-right text-[10px] font-nanum mt-1 mr-1 decoration-solid underline">
+          <button
+            onClick={handleSignOut}
+            className="logOut text-right text-[10px] font-nanum mt-1 mr-1 decoration-solid underline"
+          >
             로그아웃
           </button>
         </div>

@@ -1,7 +1,8 @@
-// import pb from '@/api/pocketbase';
+import pb from '@/api/pocketbase';
 import { Button } from '@/components/button/Button';
 import { useNavigate } from 'react-router-dom';
-// import { useState } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -9,22 +10,57 @@ function MyProfile() {
     navigate('/myfridge');
   };
 
+  const [profileName, setProfileName] = useState('');
+  const [fileName, setFileName] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+
+  useEffect(() => {
+    const handleProfile = async () => {
+      try {
+        // PocketBase 에서 닉네임 가져오기
+        const nameResponse = await pb
+          .collection('users')
+          .getList(1, 10, { filter: `username = "qwer1212"` });
+        setProfileName(nameResponse.items[0].name);
+        console.log(profileName);
+
+        // PocketBase 에서 프로필 이미지 가져오기
+        const imageResponse = await pb
+          .collection('users')
+          .getList(1, 10, { filter: `username = "qwer1212"` });
+        setFileName(imageResponse.items[0].avatar);
+        setProfileImage(
+          pb.files.getUrl(imageResponse.items[0], fileName, {
+            thumb: '80x80',
+          })
+        );
+        console.log(profileImage);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    handleProfile();
+  }, [profileName, profileImage, fileName]);
+
   return (
     <>
       <div className="wapper w-screen px-[26px] pt-[25px] -bg--fridge-white flex flex-nowrap flex-col">
         <div className="container max-w-[400px] mx-auto flex flex-nowrap flex-col">
-          <div className="topFridge bg-[#F5F5F5] rounded-t-[15px] mb-[15px] min-h-[123px] px-[22px] py-4 flex flex-nowrap justify-center items-center gap-[25px]">
-            <div className="profileImage">
-              <img src="/" alt="프로필" className="profile" />
-            </div>
+          <div className="topFridge bg-[#F5F5F5] rounded-t-[15px] mb-[15px] min-h-[123px] px-[22px] py-4 flex flex-nowrap justify-center items-center gap-[20px]">
+            <img
+              src={profileImage}
+              alt="프로필"
+              className="w-[80px] h-[80px] rounded-[10px]"
+            />
+
             <div className="profileGreetings">
               <p className="font-nanum text-sm">
-                <span className="font-bold mr-2">김감자</span>님,
+                <span className="font-bold mr-2">{profileName}</span>님,
               </p>
               <p className="text-xs">오늘도 즐거운 식사하세요!</p>
               <button
                 onClick={handleNavigate}
-                className="openFridge -bg--fridge-primary -text--fridge-white font-dohyeon rounded-[5px] text-[14px] pt-[7px] pb-[5px] px-[14px] mt-[13px]"
+                className="openFridge -bg--fridge-primary -text--fridge-white font-dohyeon rounded-[5px] text-[12px] pt-[7px] pb-[5px] px-[10px] mt-[13px]"
               >
                 내 냉장고 열어보기
               </button>

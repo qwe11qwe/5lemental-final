@@ -39,7 +39,6 @@ function SignIn() {
   useEffect(() => {
     if (isValid) {
       navigate('/home');
-      // setFormState({ id: '', password: '' });
     }
   }, [isValid, navigate]);
 

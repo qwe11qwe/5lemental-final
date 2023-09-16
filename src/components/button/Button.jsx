@@ -9,7 +9,9 @@ export function Button({
 }) {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate({ navigateTo });
+    navigate(navigateTo);
+    console.log(navigateTo);
+    console.log('haha');
   };
   return (
     <button

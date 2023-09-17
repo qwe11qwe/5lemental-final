@@ -12,7 +12,6 @@ import MyProfile from './pages/MyProfile';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeLiked from './pages/RecipeLiked';
 import Search from './pages/Search';
-import SearchResult from './pages/SearchResult';
 import SignUp from './pages/SignUp';
 import Start from './pages/Start';
 
@@ -30,7 +29,6 @@ const router = createBrowserRouter(
         <Route path="recipedetail" element={<RecipeDetail />} />
         <Route path="recipeliked" element={<RecipeLiked />} />
         <Route path="search" element={<Search />} />
-        <Route path="searchresult" element={<SearchResult />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />
       </Route>

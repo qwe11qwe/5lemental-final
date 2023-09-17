@@ -26,7 +26,7 @@ function IngredientItem() {
       {ingredientInfo.map((ingredient) => (
         <div
           key={ingredient.id}
-          className="w-[55px] h-[74px]">
+          className="w-[55px] h-[74px] flex flex-col items-center">
             <img
               src={getPbImageURL(ingredient, 'photo')}
               alt={ingredient.name}

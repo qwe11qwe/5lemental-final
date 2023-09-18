@@ -2,7 +2,7 @@ import InputBox from '@/components/InputBox';
 import { useState } from 'react';
 import debounce from '@/utils/debounce';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/button/Button';
+import Button from '@/components/button/Button';
 import useAuthStore from '@/store/auth';
 
 function SignIn() {

@@ -5,10 +5,30 @@ import S from './SignUp.module.css';
 import { useState } from 'react';
 import useAuthStore from '@/store/auth';
 import pb from '@/api/pocketbase';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
+  const navigate = useNavigate();
   const signUp = useAuthStore((state) => state.signUp);
-  const [idCheck, setIdCheck] = useState('');
+
+  const [idCheck, setIdCheck] = useState(true);
+  const [idAlert, setIdAlert] = useState('사용할 아이디를 작성해주세요.');
+
+  const [nickNameCheck, setNickNameCheck] = useState(true);
+  const [nickNameAlert, setNickNameAlert] =
+    useState('나만의 닉네임을 지어주세요.');
+
+  const [pwCheck, setPwCheck] = useState(true);
+  const [pwAlert, setPwAlert] = useState('비밀번호로 내 정보를 보호해주세요.');
+
+  const [id, setId] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+
   const [formState, setFormState] = useState({
     id: '',
     nickname: '',
@@ -23,32 +43,145 @@ function SignUp() {
     agreeAll: false,
   });
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    const { id, nickname, password, passwordCheck } = formState;
-    console.log(formState);
-
-    try {
-      console.log('포켓베이스 - id 중복체크');
-      const response = await pb
-        .collection('users')
-        .getList(1, 10, { filter: `username = "${id}"` });
-      console.log(response.items.length);
-      if (response.items.length > 0) {
-        setIdCheck('이미 사용중인 아이디입니다.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleInput = debounce((e) => {
     const { name, value } = e.target;
     setFormState({
       ...formState,
       [name]: value,
     });
-  }, 400);
+  }, 100);
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const { id, nickname, password, passwordCheck } = formState;
+    console.log(formState);
+
+    try {
+      const handleIdCheck = async () => {
+        console.log('포켓베이스 - id 중복체크');
+        const responseID = await pb
+          .collection('users')
+          .getList(1, 10, { filter: `username = "${id}"` });
+        if (/^[a-zA-Z0-9]{5,12}$/.test(id) === true) {
+          if (responseID.items.length === 0 && id !== '') {
+            setIdCheck(true);
+            setIdAlert('멋진 id 네요!');
+            setId(id);
+            console.log(id);
+          } else {
+            setIdCheck(false);
+            setIdAlert('이미 사용중인 아이디거나, 공란입니다.');
+            setId('');
+          }
+        } else {
+          setIdCheck(false);
+          setIdAlert('영문/숫자 사용, 5 ~ 12자 이내, 특수문자 사용불가');
+        }
+      };
+
+      const handleNicknameCheck = async () => {
+        console.log('포켓베이스 - 닉네임 중복체크');
+        const responseNickname = await pb
+          .collection('users')
+          .getList(1, 10, { filter: `name = "${nickname}"` });
+        if (/^[a-zA-Z0-9가-힣]{5,12}$/.test(nickname) === true) {
+          if (responseNickname.items.length === 0 && nickname !== '') {
+            setNickNameCheck(true);
+            setNickNameAlert('멋진 닉네임이네요!');
+            setNickname(nickname);
+          } else {
+            setNickNameCheck(false);
+            setNickNameAlert('이미 사용중인 닉네임이거나, 공란입니다.');
+            setNickname('');
+          }
+        } else {
+          setNickNameCheck(false);
+          setNickNameAlert(
+            '한글/영문/숫자 사용, 5 ~ 12자 이내, 특수문자 사용불가'
+          );
+        }
+      };
+
+      const handlePasswordCheck = () => {
+        console.log('비밀번호 입력 확인');
+        if (
+          /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{5,12}$/.test(
+            password
+          ) === true
+        ) {
+          if (
+            password === passwordCheck &&
+            password !== '' &&
+            passwordCheck !== ''
+          ) {
+            setPwCheck(true);
+            setPwAlert('비밀번호가 일치합니다.');
+            setPassword(password);
+            setPasswordCheck(passwordCheck);
+          } else {
+            setPwCheck(false);
+            setPwAlert('비밀번호가 일치하지 않거나, 공란입니다.');
+            setPassword('');
+            setPasswordCheck('');
+          }
+        } else {
+          setPwCheck(false);
+          setPwAlert('5 ~ 12자 이내, 특수문자 1개 이상 사용 필수');
+        }
+      };
+
+      handleIdCheck();
+      handleNicknameCheck();
+      handlePasswordCheck();
+    } catch (error) {
+      console.error(error);
+    }
+
+    if (
+      id === '' ||
+      nickname === '' ||
+      password === '' ||
+      passwordCheck === ''
+    ) {
+      toast.error('가입 정보를 모두 입력해주세요.');
+    }
+
+    if (checkboxes.agree1 !== true || checkboxes.agree2 !== true) {
+      toast.error('필수 약관에 동의해주세요.');
+    }
+  };
+
+  const handleJoin = (username, name, password, passwordConfirm) => {
+    const newUser = {
+      username,
+      name,
+      password,
+      passwordConfirm,
+    };
+
+    signUp(newUser).then(() => {
+      toast.success('회원가입이 완료되었습니다.');
+      setTimeout(() => {
+        navigate('/signin');
+      }, 1000);
+    });
+  };
+
+  useEffect(() => {
+    if (
+      id !== '' &&
+      nickname !== '' &&
+      password !== '' &&
+      passwordCheck !== ''
+    ) {
+      if (
+        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
+        checkboxes.agreeAll === true
+      ) {
+        handleJoin(id, nickname, password, passwordCheck);
+      }
+    }
+  }, [id, password, nickname, checkboxes]);
 
   const handleCheckList = (e) => {
     setCheckboxes({ ...checkboxes, [e.target.name]: e.target.checked });
@@ -72,8 +205,21 @@ function SignUp() {
   return (
     <>
       <div className="wrapper m-auto mt-3">
+        <ToastContainer
+          position="top-center"
+          autoClose={1000}
+          limit={1}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <form onSubmit={handleSignUp}>
-          <div className="signUpWrapper -bg--fridge-secondary flex justify-center items-center flex-wrap flex-col w-screen pt-3 pb-1">
+          <div className="signUpWrapper -bg--fridge-secondary flex justify-center items-center flex-wrap flex-col w-screen pt-3 pb-3">
             <div className="signUpContainer w-full max-w-[820px] px-[20px]">
               <h2 className="font-dohyeon -text--fridge-black text-[15px] text-left mb-1">
                 가입 정보
@@ -85,7 +231,7 @@ function SignUp() {
                 placeholder="아이디를 입력해주세요."
                 onChange={handleInput}
               />
-              <p className={idCheck === '' ? S.normal : S.alert}>{idCheck}</p>
+              <p className={idCheck === true ? S.normal : S.alert}>{idAlert}</p>
               <InputBox
                 id="nickname"
                 type="text"
@@ -93,7 +239,9 @@ function SignUp() {
                 placeholder="닉네임을 입력해주세요."
                 onChange={handleInput}
               />
-              <p className={S.alert}>사용할 수 없는 닉네임입니다.</p>
+              <p className={nickNameCheck === true ? S.normal : S.alert}>
+                {nickNameAlert}
+              </p>
               <InputBox
                 id="password"
                 type="password"
@@ -108,9 +256,7 @@ function SignUp() {
                 placeholder="비밀번호를 다시 입력해주세요."
                 onChange={handleInput}
               />
-              <p className="ml-3 mb-[2px] -text--fridge-red font-nanum text-[8px]">
-                비밀번호는 8자리 이상, 특수문자를 포함해야합니다.
-              </p>
+              <p className={pwCheck === true ? S.normal : S.alert}>{pwAlert}</p>
             </div>
           </div>
           <div className="agreementWrapper -bg--fridge-white w-full max-w-[820px] flex justify-center m-auto flex-wrap flex-col px-[20px] py-[10px]">

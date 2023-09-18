@@ -2,7 +2,7 @@ import SearchInput from "@/components/SearchInput"
 
 function Search () {
   return(
-    <SearchInput/>
+    <SearchInput searchType='cook'/>
   )
 }
 

@@ -84,7 +84,7 @@ function SignUp() {
         const responseNickname = await pb
           .collection('users')
           .getList(1, 10, { filter: `name = "${nickname}"` });
-        if (/^[a-zA-Z0-9가-힣]{5,12}$/.test(nickname) === true) {
+        if (/^[a-zA-Z0-9가-힣]{2,7}$/.test(nickname) === true) {
           if (responseNickname.items.length === 0 && nickname !== '') {
             setNickNameCheck(true);
             setNickNameAlert('멋진 닉네임이네요!');
@@ -97,7 +97,7 @@ function SignUp() {
         } else {
           setNickNameCheck(false);
           setNickNameAlert(
-            '한글/영문/숫자 사용, 5 ~ 12자 이내, 특수문자 사용불가'
+            '한글/영문/숫자 사용, 2 ~ 7 자 이내, 특수문자 사용불가'
           );
         }
       };

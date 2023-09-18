@@ -1,23 +1,78 @@
 import InputBox from '@/components/InputBox';
 import { Button } from '@/components/button/Button';
+import debounce from '@/utils/debounce';
 import S from './SignUp.module.css';
 import { useState } from 'react';
+import useAuthStore from '@/store/auth';
+import pb from '@/api/pocketbase';
 
 function SignUp() {
+  const signUp = useAuthStore((state) => state.signUp);
+  const [idCheck, setIdCheck] = useState('');
+  const [formState, setFormState] = useState({
+    id: '',
+    nickname: '',
+    password: '',
+    passwordCheck: '',
+  });
+
   const [checkboxes, setCheckboxes] = useState({
     agree1: false,
     agree2: false,
     agree3: false,
     agreeAll: false,
   });
-  const handleCheck = (e) => {
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    const { id, nickname, password, passwordCheck } = formState;
+    console.log(formState);
+
+    try {
+      console.log('포켓베이스 - id 중복체크');
+      const response = await pb
+        .collection('users')
+        .getList(1, 10, { filter: `username = "${id}"` });
+      console.log(response.items.length);
+      if (response.items.length > 0) {
+        setIdCheck('이미 사용중인 아이디입니다.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInput = debounce((e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  }, 400);
+
+  const handleCheckList = (e) => {
     setCheckboxes({ ...checkboxes, [e.target.name]: e.target.checked });
+    if (e.target.name === 'agreeAll' && e.target.checked === true) {
+      setCheckboxes({
+        agree1: true,
+        agree2: true,
+        agree3: true,
+        agreeAll: true,
+      });
+    } else if (e.target.name === 'agreeAll' && e.target.checked === false) {
+      setCheckboxes({
+        agree1: false,
+        agree2: false,
+        agree3: false,
+        agreeAll: false,
+      });
+    }
   };
 
   return (
     <>
       <div className="wrapper m-auto mt-3">
-        <form action="onSubmit">
+        <form onSubmit={handleSignUp}>
           <div className="signUpWrapper -bg--fridge-secondary flex justify-center items-center flex-wrap flex-col w-screen pt-3 pb-1">
             <div className="signUpContainer w-full max-w-[820px] px-[20px]">
               <h2 className="font-dohyeon -text--fridge-black text-[15px] text-left mb-1">
@@ -28,13 +83,15 @@ function SignUp() {
                 type="text"
                 name="id"
                 placeholder="아이디를 입력해주세요."
+                onChange={handleInput}
               />
-              <p className={S.alert}>사용할 수 없는 아이디입니다.</p>
+              <p className={idCheck === '' ? S.normal : S.alert}>{idCheck}</p>
               <InputBox
                 id="nickname"
                 type="text"
                 name="nickname"
                 placeholder="닉네임을 입력해주세요."
+                onChange={handleInput}
               />
               <p className={S.alert}>사용할 수 없는 닉네임입니다.</p>
               <InputBox
@@ -42,12 +99,14 @@ function SignUp() {
                 type="password"
                 name="password"
                 placeholder="비밀번호를 입력해주세요."
+                onChange={handleInput}
               />
               <InputBox
                 id="passwordCheck"
-                type="text"
+                type="password"
                 name="passwordCheck"
                 placeholder="비밀번호를 다시 입력해주세요."
+                onChange={handleInput}
               />
               <p className="ml-3 mb-[2px] -text--fridge-red font-nanum text-[8px]">
                 비밀번호는 8자리 이상, 특수문자를 포함해야합니다.
@@ -75,7 +134,7 @@ function SignUp() {
                   <input
                     className={S.agreeBox}
                     checked={checkboxes.agree1}
-                    onChange={handleCheck}
+                    onChange={handleCheckList}
                     type="checkbox"
                     name="agree1"
                     id="agree1"
@@ -96,7 +155,7 @@ function SignUp() {
                   <input
                     className={S.agreeBox}
                     checked={checkboxes.agree2}
-                    onChange={handleCheck}
+                    onChange={handleCheckList}
                     type="checkbox"
                     name="agree2"
                     id="agree2"
@@ -116,7 +175,7 @@ function SignUp() {
                   <input
                     className={S.agreeBox}
                     checked={checkboxes.agree3}
-                    onChange={handleCheck}
+                    onChange={handleCheckList}
                     type="checkbox"
                     name="agree3"
                     id="agree3"
@@ -134,7 +193,7 @@ function SignUp() {
                   <input
                     className={S.agreeBox}
                     checked={checkboxes.agreeAll}
-                    onChange={handleCheck}
+                    onChange={handleCheckList}
                     type="checkbox"
                     name="agreeAll"
                     id="agreeAll"

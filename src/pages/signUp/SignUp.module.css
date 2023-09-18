@@ -11,5 +11,9 @@
 }
 
 .alert {
-  @apply ml-1 mb-[2px] flex items-center -text--fridge-red before:block before:w-[9px] before:h-[9px] before:bg-cover before:bg-[url('/src/assets/icons/alert-circle-red.svg')] before:mr-1 font-nanum text-[8px];
+  @apply ml-1 mb-[2px] flex items-center -text--fridge-red font-nanum text-[8px] before:block before:w-[9px] before:h-[9px] before:bg-cover before:bg-[url('/src/assets/icons/alert-circle-red.svg')] before:mr-1;
+}
+
+.normal {
+  @apply h-[9px] ml-1 mb-[2px] flex items-center -text--fridge-red font-nanum text-[8px];
 }

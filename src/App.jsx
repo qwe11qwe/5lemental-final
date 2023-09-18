@@ -1,4 +1,4 @@
-import LikeButton from './components/Button/likebutton';
+// import LikeButton from './components/Button/likebutton';
 import FoodlistButton from './components/LikeFood';
 
 // import router from './routes';
@@ -9,7 +9,7 @@ function App() {
     <div>
       {/* <RouterProvider /> */}
       <FoodlistButton />
-      <LikeButton></LikeButton>
+      {/* <LikeButton></LikeButton> */}
       {/* <LikeButton count={11}></LikeButton>
       <LikeButton count={13}></LikeButton>
       <LikeButton count={15}></LikeButton>

@@ -36,8 +36,8 @@ function FoodlistButton() {
   }
 
   return (
-    <div className="  relative pt-[20px] flex justify-center items-center bg-slate-400">
-      <ul>
+    <div className=" bg-slate-400">
+      <ul className="bg-sky-300 list-none p-0 m-0">
         {data.map((item) => (
           <LikeFood
             key={item.id}

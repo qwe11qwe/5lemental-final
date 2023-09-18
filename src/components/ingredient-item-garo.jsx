@@ -11,63 +11,23 @@ const client = new PocketBase(url);
 //? item : 재료 정보 출력
 //? user : 현재 회원 정보 출력(매번 출력되면 너무 소모값 클거같은데 처음 한번만 가져오게 할 수는 없을까)
 //? stat : item재료를 user회원이 가지고 있는지 정보(가지고 있으면 1)
-export default function IngredientItemGaro({ item , user ,  stat }){
-    const cart = useStore((state) => state.cart);
-    const changeState = useStore((state) => state.changeState);
-    
-    useEffect(()=>{
-        cart.push(item.name);
-        cart.push(stat);
-    },[])
-
-
-    async function handle(handleStat){
-        
-        if(handleStat == 1){
-            console.log('stat은 1 입니다.');
-            try {
-                await client.collection('users').update(user.id, {
-                  'ingredients_keys-': item.id,
-                });
-                console.log('-', stat);
-
-                let iname = item.name;
-                let idx2 = cart.indexOf(iname);
-                console.log('cart : ', cart);
-                console.log('iname : ', iname);
-                console.log('idx2 : ', idx2);
-                changeState(idx2);
-                // 앱 상태 업데이트
-                // Zustand 사용자의 재료 변경사항을 화면에 반영
-                // 재료 목록 삭제
-                // removeUserIngredient(item.id);
-              } catch (error) {
-                console.error(error);
-              }
-        }
-        else if(handleStat == 0){
-            console.log('stat은 0 입니다.');
-            try {
-                await client.collection('users').update(user.id, {
-                  'ingredients_keys+': item.id,
-                });
-                console.log('+', stat);
-                //console.log('cart : ', cart);
-
-                let iname = item.name;
-                let idx2 = cart.indexOf(iname);
-                console.log('cart : ', cart);
-                console.log('iname : ', iname);
-                console.log('idx2 : ', idx2);
-                changeState(idx2);
-                // 앱 상태 업데이트
-                // Zustand 사용자의 재료 변경사항을 화면에 반영
-                // 재료 목록 추가
-                // addUserIngredient(item.id);
-              } catch (error) {
-                console.error(error);
-            }
-        }
+export default function IngredientItemGaro({ item, user, stat }) {
+    const changeStateOfCartItem = useStore(
+      (state) => state.changeStateOfCartItem
+    );
+  
+    async function handle(handleStat) {
+      try {
+        await client.collection('users').update(user.id, {
+          [`ingredients_keys${handleStat === 0 ? '+' : '-'}`]: item.id,
+        });
+  
+        changeStateOfCartItem(item.id, handleStat ? 0 : 1);
+  
+        // handleStat === 0 ? removeUserIngredient(item.id) : addUserIngredient(item.id)
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     return(
@@ -109,3 +69,65 @@ export default function IngredientItemGaro({ item , user ,  stat }){
         </li>
     )
 }
+
+
+
+
+// export default function IngredientItemGaro({ item , user ,  stat }){
+//     const cart = useStore((state) => state.cart);
+//     const changeState = useStore((state) => state.changeState);
+    
+//     useEffect(()=>{
+//         cart.push(item.name);
+//         cart.push(stat);
+//     },[])
+
+
+//     async function handle(handleStat){
+        
+//         if(handleStat == 1){
+//             console.log('stat은 1 입니다.');
+//             try {
+//                 await client.collection('users').update(user.id, {
+//                   'ingredients_keys-': item.id,
+//                 });
+//                 console.log('-', stat);
+
+//                 let iname = item.name;
+//                 let idx2 = cart.indexOf(iname);
+//                 console.log('cart : ', cart);
+//                 console.log('iname : ', iname);
+//                 console.log('idx2 : ', idx2);
+//                 changeState(idx2);
+//                 // 앱 상태 업데이트
+//                 // Zustand 사용자의 재료 변경사항을 화면에 반영
+//                 // 재료 목록 삭제
+//                 // removeUserIngredient(item.id);
+//               } catch (error) {
+//                 console.error(error);
+//               }
+//         }
+//         else if(handleStat == 0){
+//             console.log('stat은 0 입니다.');
+//             try {
+//                 await client.collection('users').update(user.id, {
+//                   'ingredients_keys+': item.id,
+//                 });
+//                 console.log('+', stat);
+//                 //console.log('cart : ', cart);
+
+//                 let iname = item.name;
+//                 let idx2 = cart.indexOf(iname);
+//                 console.log('cart : ', cart);
+//                 console.log('iname : ', iname);
+//                 console.log('idx2 : ', idx2);
+//                 changeState(idx2);
+//                 // 앱 상태 업데이트
+//                 // Zustand 사용자의 재료 변경사항을 화면에 반영
+//                 // 재료 목록 추가
+//                 // addUserIngredient(item.id);
+//               } catch (error) {
+//                 console.error(error);
+//             }
+//         }
+//     }

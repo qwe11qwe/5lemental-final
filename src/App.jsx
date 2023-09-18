@@ -1,5 +1,5 @@
 import LikeButton from './components/Button/likebutton';
-import FoodlistButton from './components/Like';
+import FoodlistButton from './components/LikeFood';
 
 // import router from './routes';
 // import { RouterProvider } from 'react-router-dom';

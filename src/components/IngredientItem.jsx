@@ -32,7 +32,7 @@ function IngredientItem() {
               alt={ingredient.name}
             />
           <div
-            className="font-nanum w-auto h-4 mt-1 -bg--fridge-bg-gray rounded-md text-center text-xs overflow-hidden"
+            className="font-nanum max-w-[55px] h-4 mt-1 px-1 -bg--fridge-bg-gray rounded-md text-center text-xs truncate"
           >
             {ingredient.name}
           </div>

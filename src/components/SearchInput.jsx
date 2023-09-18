@@ -10,6 +10,8 @@ const inputRef = useRef('');
 const [cooks, setCooks] = useState([]);
 // 검색된 결과 집합 ( 사용자 검색 요청 시 처리 )
 const [searchResult, setSearchResult] = useState([]);
+// 검색 여부
+const [isSearched, setIsSearched] = useState(false);
 
 useEffect(() => {
   async function fetchCookList() {
@@ -28,6 +30,7 @@ const toggleInputSearch = () => {
 
   if (searchTerm) {
     setSearchResult(cooks.filter((cook) => cook.includes(searchTerm)));
+    setIsSearched(true);
     inputRef.current.value='';
   } else {
     setSearchResult([]);
@@ -36,9 +39,8 @@ const toggleInputSearch = () => {
 
 // 규민 : 리액트 쿼리를 써서 캐싱을 하는게 좋지 않을까.. 캐싱 안하면 검색이 바뀔때마다 다시 렌더링 된다. 데이터를 한 번만 불러와서 렌더링하지 않고 사용자가 필요할 때마다 꺼내 쓸 수 있다. useRef 를 사용해
 
-
   return(
-    <>
+  <>
     <div className='w-full max-w-[820px] m-auto'>
       <div className='flex mt-10 ml-[20px] relative'>
         <input
@@ -60,17 +62,20 @@ const toggleInputSearch = () => {
         </button>
       </div>
       <div className='mt-4'>
-      {searchResult.toSorted().map((cook, index) => 
-          (
-            <ul key={index} className='ml-5 text-sm'>
-              <li>{cook}</li>
-            </ul>
+        {searchResult.length > 0 ? (
+          searchResult.sort().map((cook, index) => 
+            (
+              <ul key={index} className='ml-5 text-sm'>
+                <li>{cook}</li>
+              </ul>
+            )
           )
-      )}
+        ) : (
+            isSearched && <div className='text-center mt-9'>검색 결과가 없습니다.</div>
+        )}
       </div>
     </div>
-    
-    </>
+  </>
   )
 }
 

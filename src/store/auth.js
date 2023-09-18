@@ -28,7 +28,7 @@ const authStore = (set) => ({
     set((state) => ({
       ...state,
       isValid,
-      id: model.id,
+      user: model.id,
       token,
     }));
 

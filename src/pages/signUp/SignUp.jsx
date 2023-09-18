@@ -1,5 +1,5 @@
 import InputBox from '@/components/InputBox';
-import { Button } from '@/components/button/Button';
+import Button from '@/components/button/Button';
 import debounce from '@/utils/debounce';
 import S from './SignUp.module.css';
 import { useState } from 'react';

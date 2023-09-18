@@ -1,5 +1,5 @@
 import pb from '@/api/pocketbase';
-import { Button } from '@/components/button/Button';
+import Button from '@/components/button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';

@@ -1,0 +1,11 @@
+.agreeBox {
+  @apply opacity-0 w-1 h-1;
+}
+
+.notAgreed {
+  @apply w-full flex flex-row items-center justify-between after:block after:w-[24px] after:h-[24px] after:bg-[url('/src/assets/icons/checkbox-circle-light.svg')] after:bg-cover;
+}
+
+.agreed {
+  @apply w-full flex flex-row items-center justify-between after:block after:w-[24px] after:h-[24px] after:bg-[url('/src/assets/icons/checkbox-circle-dark.svg')] after:bg-cover;
+}

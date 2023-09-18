@@ -26,7 +26,7 @@ function Start() {
             </div>
           </div>
           <div className="bottomFridge  -bg--fridge-white rounded-b-[15px] min-h-[244px] relative">
-            <div className="FridgeHandle w-[14px] h-[52px] -bg--fridge-gray rounded-[15px] absolute top-[20px] right-[24px]"></div>
+            <button className="FridgeHandle w-[14px] h-[52px] -bg--fridge-gray rounded-[15px] absolute top-[20px] right-[24px]"></button>
           </div>
 
           <p className="-text--fridge-nav-gray font-dohyeon text-[15px] block mt-[9px] mx-auto">

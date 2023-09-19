@@ -21,12 +21,12 @@ function IngredientButtonSero () {
   }, []);
 
   return(
-    <>
+    <div className='flex gap-2'>
       {data.map((item) => (
         <div
           className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center pt-[6px]"
           key={item.id}>
-          <div className="w-[62px] h-[62px] bg-white items-center">
+          <div className="w-[62px] h-[62px] items-center">
             <img
               src={getPbImageURL(item,'photo')}
               alt={item.name}
@@ -36,7 +36,7 @@ function IngredientButtonSero () {
         <div className="font-dohyeon text-center">{item.name}</div>
       </div>
       ))}
-    </>
+    </div>
   )
 }
 

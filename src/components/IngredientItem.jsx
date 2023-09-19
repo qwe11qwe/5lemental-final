@@ -7,6 +7,7 @@ function IngredientItem() {
   // 재료 전체 정보
   const [ingredientInfo, setingredientInfo] = useState([]);
 
+  // 재료 정보 불러오기
   useEffect(() => {
     async function fetchInfoList() {
       try {

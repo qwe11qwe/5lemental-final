@@ -1,5 +1,5 @@
 import SearchInput from '@/components/SearchInput';
-import IngredientButtonGaro from './../components/ingredient-button-garo';
+import IngredientButtonGaro from '@/components/IngredientButtonGaro';
 import { useEffect, useState, useRef } from 'react';
 import debounce from 'lodash.debounce';
 

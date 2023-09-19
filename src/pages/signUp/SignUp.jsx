@@ -5,10 +5,10 @@ import S from './SignUp.module.css';
 import { useState } from 'react';
 import useAuthStore from '@/store/auth';
 import pb from '@/api/pocketbase';
-import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -87,7 +87,6 @@ function SignUp() {
             setIdCheck(true);
             setIdAlert('멋진 id 네요!');
             setId(id);
-            console.log(id);
           } else {
             setIdCheck(false);
             setIdAlert('이미 사용중인 아이디거나, 공란입니다.');
@@ -170,23 +169,23 @@ function SignUp() {
       toast.error('필수 약관에 동의해주세요.');
     }
 
-    console.log(formState);
-    console.log(checkboxes);
+    console.log(
+      '아이디',
+      idCheck,
+      '닉네임',
+      nickNameCheck,
+      '비밀번호',
+      pwCheck
+    );
 
-    if (
-      id !== '' &&
-      nickname !== '' &&
-      password !== '' &&
-      passwordCheck !== ''
-    ) {
-      if (
-        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
-        checkboxes.agreeAll === true
-      ) {
+    if (idCheck === true && nickNameCheck === true && pwCheck === true) {
+      if ((agree1 === true && agree2 === true) || agreeAll === true) {
         handleJoin(id, nickname, password, passwordCheck);
       }
     }
   };
+
+  useEffect(() => {});
 
   const handleJoin = (username, name, password, passwordConfirm) => {
     const newUser = {

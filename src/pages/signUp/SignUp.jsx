@@ -51,9 +51,29 @@ function SignUp() {
     });
   }, 100);
 
+  const handleCheckList = (e) => {
+    setCheckboxes({ ...checkboxes, [e.target.name]: e.target.checked });
+    if (e.target.name === 'agreeAll' && e.target.checked === true) {
+      setCheckboxes({
+        agree1: true,
+        agree2: true,
+        agree3: true,
+        agreeAll: true,
+      });
+    } else if (e.target.name === 'agreeAll' && e.target.checked === false) {
+      setCheckboxes({
+        agree1: false,
+        agree2: false,
+        agree3: false,
+        agreeAll: false,
+      });
+    }
+  };
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     const { id, nickname, password, passwordCheck } = formState;
+    const { agree1, agree2, agree3, agreeAll } = checkboxes;
     console.log(formState);
 
     try {
@@ -149,6 +169,23 @@ function SignUp() {
     if (checkboxes.agree1 !== true || checkboxes.agree2 !== true) {
       toast.error('필수 약관에 동의해주세요.');
     }
+
+    console.log(formState);
+    console.log(checkboxes);
+
+    if (
+      id !== '' &&
+      nickname !== '' &&
+      password !== '' &&
+      passwordCheck !== ''
+    ) {
+      if (
+        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
+        checkboxes.agreeAll === true
+      ) {
+        handleJoin(id, nickname, password, passwordCheck);
+      }
+    }
   };
 
   const handleJoin = (username, name, password, passwordConfirm) => {
@@ -165,41 +202,6 @@ function SignUp() {
         navigate('/signin');
       }, 1000);
     });
-  };
-
-  useEffect(() => {
-    if (
-      id !== '' &&
-      nickname !== '' &&
-      password !== '' &&
-      passwordCheck !== ''
-    ) {
-      if (
-        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
-        checkboxes.agreeAll === true
-      ) {
-        handleJoin(id, nickname, password, passwordCheck);
-      }
-    }
-  }, [id, password, nickname, checkboxes]);
-
-  const handleCheckList = (e) => {
-    setCheckboxes({ ...checkboxes, [e.target.name]: e.target.checked });
-    if (e.target.name === 'agreeAll' && e.target.checked === true) {
-      setCheckboxes({
-        agree1: true,
-        agree2: true,
-        agree3: true,
-        agreeAll: true,
-      });
-    } else if (e.target.name === 'agreeAll' && e.target.checked === false) {
-      setCheckboxes({
-        agree1: false,
-        agree2: false,
-        agree3: false,
-        agreeAll: false,
-      });
-    }
   };
 
   return (

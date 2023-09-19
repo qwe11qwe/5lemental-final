@@ -51,7 +51,7 @@ export default function cookstItem({ item, user, stat }) {
           {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
         </figure>
         <div className="bg-slate-700 w-36">
-          <span className="bg-yellow-600 rounded-md w-20 flex justify-center text-sm">
+          <span className="bg-yellow-600 rounded-md w-20 flex justify-center">
             {item.name}
           </span>
           <span className="bg-blue-700 text-sm w-12 text-ellipsis overflow-hidden ...">

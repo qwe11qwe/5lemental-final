@@ -30,19 +30,32 @@
 // export default LikeButton;
 
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import LikeButton from './LikeButton';
+import pb from '@/api/pocketbase';
+import { getPocketHostImageURL } from '@/utils';
+import BookMarkL from '../BookMark';
 
-function App() {
-  const [favorites, setFavorites] = useState([]);
+// 데이터 요청 함수 (query function)
+// 페이지 로드 또는 북마크 삭제 요청 시 리패칭 될 때 실행되는 함수입니다.
+const getRecommends = async (userId) => {
+  return await pb.collection('recommends').getFullList({
+    filter: `(userEmail?~'${userId}')`,
+    fields: 'collectionId,id,image',
+  });
+};
 
-  const addToFavorites = (item) => {
-    setFavorites([...favorites, item]);
-  };
+// 로그인 사용자 (더미 데이터)
+// 실제 로그인 후 `pb.authStore.model`에서 정보를 가져올 수 있습니다.
+const dummyLoginUserInfo = {
+  id: 'ypejq0ceyg9dpza',
+  username: 'hyeonjuu',
+  email: 'janghyeonjuu@gmail.com',
+};
 
-  const removeFromFavorites = (itemId) => {
-    setFavorites(favorites.filter((item) => item.id !== itemId));
-  };
+export default function BookmarkList() {
+  // 로그인 사용자 정보
+
+
+  const user = pb.authStore.model ?? dummyLoginUserInfo;
 
   return (
     <Router>

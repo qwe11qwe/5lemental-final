@@ -1,6 +1,6 @@
 import pb from '@/api/pocketbase';
 import { useEffect, useState } from 'react';
-import LikeFood from '@/components/LikeFood-item';
+import MenuImgeitem from '@/components/MenuImgeitem';
 import { ClientResponseError } from 'pocketbase';
 
 function FoodlistButton() {
@@ -37,9 +37,9 @@ function FoodlistButton() {
 
   return (
     <div className=" bg-slate-400">
-      <ul className="bg-sky-300 list-none p-0 m-0">
+      <ul className="bg-sky-300">
         {data.map((item) => (
-          <LikeFood
+          <MenuImgeitem
             key={item.id}
             item={item}
             // menu={item.description}

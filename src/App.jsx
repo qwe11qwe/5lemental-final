@@ -1,5 +1,5 @@
 // import LikeButton from './components/Button/likebutton';
-import FoodlistButton from './components/LikeFood';
+import MenuImge from './components/MenuImge';
 
 // import router from './routes';
 // import { RouterProvider } from 'react-router-dom';
@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       {/* <RouterProvider /> */}
-      <FoodlistButton />
+      <MenuImge />
       {/* <LikeButton></LikeButton> */}
       {/* <LikeButton count={11}></LikeButton>
       <LikeButton count={13}></LikeButton>

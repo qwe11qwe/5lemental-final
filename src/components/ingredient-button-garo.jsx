@@ -9,7 +9,7 @@ const client = new PocketBase(url);
 
 function IngredientButtonGaro(ingredientName) {
     let ingreName = Object.values(ingredientName);
-    console.log(ingreName);
+    //console.log(ingreName);
   // 사용자 정보 상태
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState('pending');
@@ -57,7 +57,7 @@ function IngredientButtonGaro(ingredientName) {
 
 
 if(ingredientName[0] == ''){
-    console.log(1111);
+    //console.log(1111);
     return (
         <div>
           <ul className="flex flex-wrap justify-around">
@@ -77,7 +77,7 @@ if(ingredientName[0] == ''){
       );
 }
 else{
-    console.log(2222);
+    //console.log(2222);
     return (
         <div>
           <ul className="flex flex-wrap justify-around">

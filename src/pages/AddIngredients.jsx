@@ -21,6 +21,7 @@ function AddIngredients () {
 
   const handleInputChange = (e) => {
     const newValue = e.target.value;
+   
     handleInputChangeDebounced(newValue); // 디바운싱 함수 호출
   };
 
@@ -32,22 +33,25 @@ function AddIngredients () {
         <input 
           type="text" 
           className='border-0 border-b-2 border-solid border-gray-500 h-6 w-3/4'
-          value={inputValue}
+          //value={inputValue}
+          defaultValue={inputValue}
           onChange={handleInputChange} // 디바운싱된 핸들러로 변경
           />
           {/* 디바운싱 처리해서 제일 마지막에 상태 변경되도록 하기 or 상태 변경은 버튼 누르면 되도록 하고 제일 마지막에 어디 저장소로 이동되게 하기?*/}
-        <button>
+        <button
+        onClick={() => handleImageClick(inputValue)}>
           <img 
             src="./../assets/icons/search.svg" 
             alt="" 
             className='w-6 h-6' 
-            onClick={() => handleImageClick(inputValue)} // 클릭 시 현재 입력값
+             // 클릭 시 현재 입력값
           />
         </button>
         
       </form>
       <div className="w-screen h-3/5 overflow-y-scroll">
         <IngredientButtonGaro ingredientName={inputValue}></IngredientButtonGaro>
+        {/* 여기서 page전달 -> button에서 Add면 전체 출력, Fridge면 보유한 것만 출력하도록 -> item에서 Add면 누르게, Fridge면 못누르게 */}
       </div>
       <div className="w-4/5 h-14 mx-auto bg-green-400 rounded-lg"></div>
       

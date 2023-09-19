@@ -3,12 +3,14 @@ import MenuImge from './components/MenuImge';
 
 // import router from './routes';
 // import { RouterProvider } from 'react-router-dom';
+import AddIngredients from './pages/AddIngredients';
 
-function App() {
+export default function App() {
   return (
     <div>
       {/* <RouterProvider /> */}
-      <MenuImge />
+      {/* <MenuImge /> */}
+      <AddIngredients></AddIngredients>
       {/* <LikeButton></LikeButton> */}
       {/* <LikeButton count={11}></LikeButton>
       <LikeButton count={13}></LikeButton>

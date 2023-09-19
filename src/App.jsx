@@ -1,11 +1,19 @@
-import './styles/tailwind.css';
-import IngredientButtonGaro from './components/ingredient-button-garo';
-import MyFridge from './pages/MyFridge';
-import AddIngredients from './pages/AddIngredients';
+// import LikeButton from './components/Button/likebutton';
+import MenuImge from './components/MenuImge';
 
-export default function App(){
-    return(
-        <AddIngredients></AddIngredients>
-        //<IngredientButtonGaro></IngredientButtonGaro>
-    );
+// import router from './routes';
+// import { RouterProvider } from 'react-router-dom';
+
+function App() {
+  return (
+    <div>
+      {/* <RouterProvider /> */}
+      <MenuImge />
+      {/* <LikeButton></LikeButton> */}
+      {/* <LikeButton count={11}></LikeButton>
+      <LikeButton count={13}></LikeButton>
+      <LikeButton count={15}></LikeButton>
+      <LikeButton count={18}></LikeButton> */}
+    </div>
+  );
 }

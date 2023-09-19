@@ -1,5 +1,5 @@
 import pb from '@/api/pocketbase';
-import { Button } from '@/components/button/Button';
+import Button from '@/components/button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -63,7 +63,7 @@ function MyProfile() {
 
   return (
     <>
-      <div className="wapper w-screen px-[26px] pt-[25px] -bg--fridge-white flex flex-nowrap flex-col">
+      <div className="wrapper w-screen px-[26px] pt-[25px] -bg--fridge-white flex flex-nowrap flex-col">
         <ToastContainer
           position="top-center"
           autoClose={3000}

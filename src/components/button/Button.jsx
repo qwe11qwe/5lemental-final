@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import S from './Button.module.css';
 
-export function Button({
+function Button({
   small = false,
   type = 'button',
   navigateTo = '/',
@@ -24,3 +24,5 @@ export function Button({
     ></button>
   );
 }
+
+export default Button;

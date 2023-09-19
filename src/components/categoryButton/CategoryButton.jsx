@@ -1,20 +1,23 @@
 import pb from '@/api/pocketbase';
 import S from './CategoryButton.module.css';
 import { useState } from 'react';
+import CategoryList from '../CategoryList';
 
 function CategoryButton() {
   const [selected, setSelected] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState('');
 
   const handleSelect = (category) => {
     setSelected(category);
   };
 
   const handleCategory = async (menu) => {
+    setSelectedMenu(menu);
     try {
       const response = await pb
         .collection('cooks')
         .getList(1, 10, { filter: `category = "${menu}"` });
-      response.items.map((item) => console.log(item.name));
+      // response.items.map((item) => console.log(item.name));
     } catch (error) {
       console.error(error);
     }
@@ -22,7 +25,7 @@ function CategoryButton() {
 
   return (
     <>
-      <div className="wrapper max-w-[820px] m-auto flex justify-center items-center mt-[10px]">
+      <div className="wrapper max-w-[820px] m-auto flex flex-col justify-start items-center mt-[10px]">
         <div className="container flex justify-center items-center gap-2">
           <button
             onClick={() => {
@@ -60,6 +63,9 @@ function CategoryButton() {
           >
             양식
           </button>
+        </div>
+        <div>
+          <CategoryList menu={selectedMenu} />
         </div>
       </div>
     </>

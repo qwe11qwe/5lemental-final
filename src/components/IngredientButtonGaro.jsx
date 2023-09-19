@@ -8,8 +8,8 @@ const url = 'https://orimental-final.pockethost.io';
 const client = new PocketBase(url);
 
 function IngredientButtonGaro(ingredientName) {
-  let ingreName = Object.values(ingredientName);
-  console.log(ingreName);
+    let ingreName = Object.values(ingredientName);
+    //console.log(ingreName);
   // 사용자 정보 상태
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState('pending');
@@ -55,8 +55,9 @@ function IngredientButtonGaro(ingredientName) {
     return <div>loading</div>;
   }
 
-  if (ingredientName[0] == '') {
-    console.log(1111);
+
+if(ingredientName[0] == ''){
+    //console.log(1111);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">
@@ -67,14 +68,16 @@ function IngredientButtonGaro(ingredientName) {
                 item={ingredient}
                 user={user}
                 stat={ingredient.stat}
-              />
-            );
-          })}
-        </ul>
-      </div>
-    );
-  } else {
-    console.log(2222);
+                />
+            )
+                
+            })}
+          </ul>
+        </div>
+      );
+}
+else{
+    //console.log(2222);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">

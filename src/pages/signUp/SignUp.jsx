@@ -26,16 +26,18 @@ function SignUp() {
   const [pwCheck, setPwCheck] = useState(true);
   const [pwAlert, setPwAlert] = useState('비밀번호로 내 정보를 보호해주세요.');
 
+  const [agreeCheck, setAgreeCheck] = useState(false);
+
   const [id, setId] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   const [formState, setFormState] = useState({
     id: '',
     nickname: '',
     password: '',
-    passwordCheck: '',
+    passwordConfirm: '',
   });
 
   const [checkboxes, setCheckboxes] = useState({
@@ -72,10 +74,8 @@ function SignUp() {
     }
   };
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    const { id, nickname, password, passwordCheck } = formState;
-    console.log(formState);
+  const checkSignUp = async () => {
+    const { id, nickname, password, passwordConfirm } = formState;
 
     try {
       const handleIdCheck = async () => {
@@ -123,7 +123,7 @@ function SignUp() {
         }
       };
 
-      const handlePasswordCheck = () => {
+      const handlepasswordConfirm = () => {
         console.log('비밀번호 입력 확인');
         if (
           /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{5,12}$/.test(
@@ -131,19 +131,19 @@ function SignUp() {
           ) === true
         ) {
           if (
-            password === passwordCheck &&
+            password === passwordConfirm &&
             password !== '' &&
-            passwordCheck !== ''
+            passwordConfirm !== ''
           ) {
             setPwCheck(true);
             setPwAlert('비밀번호가 일치합니다.');
             setPassword(password);
-            setPasswordCheck(passwordCheck);
-          } else if (password !== passwordCheck) {
+            setPasswordConfirm(passwordConfirm);
+          } else if (password !== passwordConfirm) {
             setPwCheck(false);
             setPwAlert('비밀번호가 일치하지 않습니다.');
             setPassword('');
-            setPasswordCheck('');
+            setPasswordConfirm('');
           }
         } else {
           setPwCheck(false);
@@ -153,7 +153,7 @@ function SignUp() {
 
       handleIdCheck();
       handleNicknameCheck();
-      handlePasswordCheck();
+      handlepasswordConfirm();
     } catch (error) {
       console.error(error);
     }
@@ -162,7 +162,7 @@ function SignUp() {
       id === '' ||
       nickname === '' ||
       password === '' ||
-      passwordCheck === ''
+      passwordConfirm === ''
     ) {
       toast.error('가입 정보를 모두 입력해주세요.');
     }
@@ -171,13 +171,50 @@ function SignUp() {
       toast.error('필수 약관에 동의해주세요.');
     }
 
-    console.log(formState);
-    console.log(checkboxes);
+    if (
+      (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
+      checkboxes.agreeAll === true
+    ) {
+      setAgreeCheck(true);
+    }
+
+    console.log(confirmJoin);
 
     if (confirmJoin === true) {
-      handleJoin(id, nickname, password, passwordCheck);
+      triggerSignUp();
     }
   };
+
+  const preventFormEvent = (e) => {
+    e.preventDefault();
+  };
+
+  const triggerSignUp = () => {
+    if (confirmJoin === true) {
+      handleJoin(id, nickname, password, passwordConfirm);
+    }
+  };
+
+  const handleSignUp = (e) => {
+    preventFormEvent(e);
+    checkSignUp().then(() => {
+      triggerSignUp();
+    });
+  };
+
+  useEffect(() => {
+    if (
+      id !== '' &&
+      nickname !== '' &&
+      password !== '' &&
+      passwordConfirm !== ''
+    ) {
+      if (agreeCheck === true) {
+        setConfirmJoin(true);
+        checkSignUp();
+      }
+    }
+  }, [checkSignUp]);
 
   const handleJoin = (username, name, password, passwordConfirm) => {
     const newUser = {
@@ -194,30 +231,6 @@ function SignUp() {
       }, 1000);
     });
   };
-
-  useEffect(() => {
-    if (
-      id !== '' &&
-      nickname !== '' &&
-      password !== '' &&
-      passwordCheck !== ''
-    ) {
-      if (
-        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
-        checkboxes.agreeAll === true
-      ) {
-        setConfirmJoin(true);
-      }
-    }
-  }, [
-    id,
-    nickname,
-    password,
-    passwordCheck,
-    checkboxes.agree1,
-    checkboxes.agree2,
-    checkboxes.agreeAll,
-  ]);
 
   return (
     <>
@@ -267,9 +280,9 @@ function SignUp() {
                 onChange={handleInput}
               />
               <InputBox
-                id="passwordCheck"
+                id="passwordConfirm"
                 type="password"
-                name="passwordCheck"
+                name="passwordConfirm"
                 placeholder="비밀번호를 다시 입력해주세요."
                 onChange={handleInput}
               />

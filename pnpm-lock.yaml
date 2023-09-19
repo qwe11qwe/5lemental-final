@@ -57,7 +57,7 @@ dependencies:
     specifier: ^9.1.3
     version: 9.1.3(react-dom@18.2.0)(react@18.2.0)
   zustand:
-    specifier: 4.4.1
+    specifier: ^4.4.1
     version: 4.4.1(@types/react@18.2.15)(immer@10.0.2)(react@18.2.0)
 
 devDependencies:
@@ -118,6 +118,9 @@ devDependencies:
   vite:
     specifier: 4.4.5
     version: 4.4.5
+  zukeeper:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 packages:
 
@@ -4351,6 +4354,10 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  /zukeeper@1.0.2:
+    resolution: {integrity: sha512-mffz8JpzC96B3Gpoixklfl2/wY4KsYxZvgPRLFMIqAvEQeMPTjLYG8oUWXm9eoItU/nQ5Lt0G2b0GcZRDGzVgA==}
     dev: true
 
   /zustand@4.4.1(@types/react@18.2.15)(immer@10.0.2)(react@18.2.0):

@@ -3,5 +3,5 @@ button.large {
 }
 
 button.small {
-  @apply -bg--fridge-primary -text--fridge-white font-dohyeon w-[204px] h-[40px] rounded-[15px] text-[18px] mt-[13px];
+  @apply -bg--fridge-primary -text--fridge-white font-dohyeon w-[204px] h-[40px] rounded-[15px] text-[20px] mt-[30px];
 }

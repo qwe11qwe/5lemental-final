@@ -14,6 +14,8 @@ function SignUp() {
   const navigate = useNavigate();
   const signUp = useAuthStore((state) => state.signUp);
 
+  const [confirmJoin, setConfirmJoin] = useState(false);
+
   const [idCheck, setIdCheck] = useState(true);
   const [idAlert, setIdAlert] = useState('사용할 아이디를 작성해주세요.');
 
@@ -73,7 +75,6 @@ function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const { id, nickname, password, passwordCheck } = formState;
-    const { agree1, agree2, agree3, agreeAll } = checkboxes;
     console.log(formState);
 
     try {
@@ -87,9 +88,10 @@ function SignUp() {
             setIdCheck(true);
             setIdAlert('멋진 id 네요!');
             setId(id);
-          } else {
+            console.log(id);
+          } else if (responseID.items.length > 0) {
             setIdCheck(false);
-            setIdAlert('이미 사용중인 아이디거나, 공란입니다.');
+            setIdAlert('이미 사용중인 아이디입니다.');
             setId('');
           }
         } else {
@@ -108,9 +110,9 @@ function SignUp() {
             setNickNameCheck(true);
             setNickNameAlert('멋진 닉네임이네요!');
             setNickname(nickname);
-          } else {
+          } else if (responseNickname.items.length > 0) {
             setNickNameCheck(false);
-            setNickNameAlert('이미 사용중인 닉네임이거나, 공란입니다.');
+            setNickNameAlert('이미 사용중인 닉네임입니다.');
             setNickname('');
           }
         } else {
@@ -137,9 +139,9 @@ function SignUp() {
             setPwAlert('비밀번호가 일치합니다.');
             setPassword(password);
             setPasswordCheck(passwordCheck);
-          } else {
+          } else if (password !== passwordCheck) {
             setPwCheck(false);
-            setPwAlert('비밀번호가 일치하지 않거나, 공란입니다.');
+            setPwAlert('비밀번호가 일치하지 않습니다.');
             setPassword('');
             setPasswordCheck('');
           }
@@ -169,23 +171,13 @@ function SignUp() {
       toast.error('필수 약관에 동의해주세요.');
     }
 
-    console.log(
-      '아이디',
-      idCheck,
-      '닉네임',
-      nickNameCheck,
-      '비밀번호',
-      pwCheck
-    );
+    console.log(formState);
+    console.log(checkboxes);
 
-    if (idCheck === true && nickNameCheck === true && pwCheck === true) {
-      if ((agree1 === true && agree2 === true) || agreeAll === true) {
-        handleJoin(id, nickname, password, passwordCheck);
-      }
+    if (confirmJoin === true) {
+      handleJoin(id, nickname, password, passwordCheck);
     }
   };
-
-  useEffect(() => {});
 
   const handleJoin = (username, name, password, passwordConfirm) => {
     const newUser = {
@@ -202,6 +194,30 @@ function SignUp() {
       }, 1000);
     });
   };
+
+  useEffect(() => {
+    if (
+      id !== '' &&
+      nickname !== '' &&
+      password !== '' &&
+      passwordCheck !== ''
+    ) {
+      if (
+        (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
+        checkboxes.agreeAll === true
+      ) {
+        setConfirmJoin(true);
+      }
+    }
+  }, [
+    id,
+    nickname,
+    password,
+    passwordCheck,
+    checkboxes.agree1,
+    checkboxes.agree2,
+    checkboxes.agreeAll,
+  ]);
 
   return (
     <>

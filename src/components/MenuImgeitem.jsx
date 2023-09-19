@@ -45,13 +45,13 @@ export default function cookstItem({ item, user, stat }) {
         handle(stat, item, user);
       }}
     >
-      <div className="bg-slate-600 float-left py-5">
+      <div type="button" alt="/" className="bg-slate-800 float-left py-5">
         <figure className="h-16 w-16 float-left">
           <img src={getPbImageURL(item, 'photo')} alt="" />
           {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
         </figure>
-        <div className="bg-slate-700 w-36">
-          <span className="bg-yellow-600 rounded-md w-20 flex justify-center">
+        <div className="bg-slate-700 w-40">
+          <span className="bg-yellow-600 rounded-md max-w-max flex justify-center">
             {item.name}
           </span>
           <span className="bg-blue-700 text-sm w-12 text-ellipsis overflow-hidden ...">

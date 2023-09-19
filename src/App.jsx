@@ -1,4 +1,4 @@
-// import LikeButton from './components/Button/likebutton';
+// import LikeButton from './components/button/Likebutton';
 import MenuImge from './components/MenuImge';
 
 // import router from './routes';
@@ -9,7 +9,9 @@ function App() {
     <div>
       {/* <RouterProvider /> */}
       <MenuImge />
-      {/* <LikeButton></LikeButton> */}
+      {/* <LikeButton>
+       */}
+      {/* <LikeButton /> */}
       {/* <LikeButton count={11}></LikeButton>
       <LikeButton count={13}></LikeButton>
       <LikeButton count={15}></LikeButton>

@@ -36,7 +36,7 @@ function FoodlistButton() {
   }
 
   return (
-    <div className=" bg-slate-400">
+    <div className=" bg-slate-400 truncate">
       <ul className="bg-sky-300">
         {data.map((item) => (
           <MenuImgeitem

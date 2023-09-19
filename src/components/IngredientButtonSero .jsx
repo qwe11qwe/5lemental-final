@@ -24,16 +24,16 @@ function IngredientButtonSero () {
     <div className='flex gap-2'>
       {data.map((item) => (
         <div
-          className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center pt-[6px]"
+          className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center"
           key={item.id}>
-          <div className="w-[62px] h-[62px] items-center">
+          <div className="w-[62px] h-[62px] items-center mx-2">
             <img
               src={getPbImageURL(item,'photo')}
               alt={item.name}
-              className=''
+              className='w-full h-full'
             />
           </div>
-        <div className="font-dohyeon text-center">{item.name}</div>
+        <div className="font-dohyeon text-[12px] text-center mt-[6px]">{item.name}</div>
       </div>
       ))}
     </div>

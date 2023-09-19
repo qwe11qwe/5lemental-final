@@ -1,5 +1,5 @@
 button.large {
-  @apply -bg--fridge-primary -text--fridge-white font-dohyeon w-full h-[50px] rounded-[15px] text-[17px] mt-[30px] py-[14px] mx-auto;
+  @apply -bg--fridge-primary -text--fridge-white font-dohyeon w-full h-[50px] rounded-[15px] text-[17px] py-[14px] mx-auto;
 }
 
 button.small {

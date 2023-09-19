@@ -2,7 +2,7 @@ import InputBox from '@/components/InputBox';
 import { useState } from 'react';
 import debounce from '@/utils/debounce';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/button/Button';
+import Button from '@/components/button/Button';
 import useAuthStore from '@/store/auth';
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -69,7 +69,7 @@ function SignIn() {
           <form onSubmit={handleSignIn}>
             <label
               htmlFor="id"
-              className="text-[15px] -text--fridge-black font-dohyeon mt-[53px] mb-1 block"
+              className="text-[15px] -text--fridge-black font-dohyeon mt-[43px] block"
             >
               아이디
               <InputBox
@@ -82,7 +82,7 @@ function SignIn() {
             </label>
             <label
               htmlFor="password"
-              className="text-[15px] -text--fridge-black font-dohyeon mt-3 mb-1 block"
+              className="text-[15px] -text--fridge-black font-dohyeon mt-3 block"
             >
               비밀번호
               <InputBox
@@ -93,16 +93,19 @@ function SignIn() {
                 onChange={handleInput}
               />
             </label>
+            <div className="w-full h-[30px]"></div>
             <Button type="submit">로그인</Button>
           </form>
         </div>
 
-        <Link
-          to="/signup"
-          className="w-full max-w-[820px] -text--fridge-black text-xs font-nanum decoration-solid flex items-end mt-2 px-[20px] underline justify-end"
-        >
-          아직 회원이 아니신가요?
-        </Link>
+        <div className="linkContainer w-full max-w-[820px] flex items-end justify-end">
+          <Link
+            to="/signup"
+            className="-text--fridge-black text-xs font-nanum decoration-solid mt-2 px-[20px] underline "
+          >
+            아직 회원이 아니신가요?
+          </Link>
+        </div>
       </div>
     </>
   );

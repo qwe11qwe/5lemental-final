@@ -11,6 +11,9 @@
     "pocketbase": "pocketbase/pocketbase serve"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
     "@tanstack/react-query": "4.33.0",
     "@tanstack/react-query-devtools": "4.33.0",
     "framer-motion": "10.16.0",

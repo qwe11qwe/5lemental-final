@@ -12,7 +12,7 @@ import MyProfile from './pages/MyProfile';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeLiked from './pages/RecipeLiked';
 import Search from './pages/Search';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/signUp/SignUp';
 import Start from './pages/Start';
 
 const router = createBrowserRouter(

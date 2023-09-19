@@ -1,14 +1,19 @@
-import router from './routes';
-import { RouterProvider } from 'react-router-dom';
+// import LikeButton from './components/Button/likebutton';
+import MenuImge from './components/MenuImge';
+
+// import router from './routes';
+// import { RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <RouterProvider router={router} />
-      </div>
-    </>
+    <div>
+      {/* <RouterProvider /> */}
+      <MenuImge />
+      {/* <LikeButton></LikeButton> */}
+      {/* <LikeButton count={11}></LikeButton>
+      <LikeButton count={13}></LikeButton>
+      <LikeButton count={15}></LikeButton>
+      <LikeButton count={18}></LikeButton> */}
+    </div>
   );
 }
-
-export default App;

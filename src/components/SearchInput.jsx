@@ -17,7 +17,7 @@ const [isSearched, setIsSearched] = useState(false);
 useEffect(() => {
   async function fetchList() {
     try {
-      const list = searchType === 'cook'
+      const list = searchType === 'menu'
         ? await pb.collection('cooks').getFullList()
         : await pb.collection('ingredients').getFullList();
 

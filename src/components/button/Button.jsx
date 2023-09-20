@@ -9,7 +9,13 @@ function Button({
 }) {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate({ navigateTo });
+    if (type === 'button') {
+      if (navigateTo === '-1') {
+        navigate(-1);
+      } else {
+        navigate({ navigateTo });
+      }
+    }
   };
   return (
     <button
@@ -21,4 +27,4 @@ function Button({
   );
 }
 
-export default Button
+export default Button;

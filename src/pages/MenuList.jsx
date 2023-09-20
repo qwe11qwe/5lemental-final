@@ -6,13 +6,17 @@ import pb from '@/api/pocketbase';
 import { Link } from 'react-router-dom';
 
 function MenuList() {
-  const { category, getMenu } = useCategoryStore();
+  const { category, getMenu, setSelectedMenu } = useCategoryStore();
+
   const [menuNameList, setMenuNameList] = useState([]);
   const [fileNameList, setFileNameList] = useState([]);
   const [imageList, setImageList] = useState([]);
 
+  const keepMenuName = (name) => {
+    setSelectedMenu(name);
+  };
+
   useEffect(() => {
-    console.log(category);
     getMenu(category).then((res) => {
       const names = res.map((item) => item.name);
       setMenuNameList(names);
@@ -37,29 +41,18 @@ function MenuList() {
     });
   }, [category]);
 
-  useEffect(() => {
-    console.log('category', category);
-  }, [category]);
-
-  useEffect(() => {
-    console.log(menuNameList);
-  }, [menuNameList]);
-
-  useEffect(() => {
-    console.log('fileNames', fileNameList);
-  }, [fileNameList]);
-
-  useEffect(() => {
-    console.log('image', imageList);
-  }, [imageList]);
-
   return (
     <>
       <CategoryButton />
-      <div className="wrapper w-screen h-full px-[16px] pt-[40px] -bg--fridge-white flex ">
+      <div className="wrapper w-screen h-full px-[16px] pt-[20px] -bg--fridge-white flex ">
         <div className="container max-w-[820px] mx-auto mb-[70px] flex flex-wrap flex-row gap-[20px] justify-center items-start">
           {menuNameList.map((name, index) => (
-            <Link key={index} className="w-[130px] h-[157px]">
+            <Link
+              to="/recipedetail"
+              key={index}
+              className="w-[130px] h-[157px]"
+              onClick={() => keepMenuName(name)}
+            >
               {imageList[index] && (
                 <img
                   className="w-[130px] h-[130px] rounded-[10px]"

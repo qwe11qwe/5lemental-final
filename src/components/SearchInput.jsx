@@ -17,7 +17,7 @@ const [isSearched, setIsSearched] = useState(false);
 useEffect(() => {
   async function fetchList() {
     try {
-      const list = searchType === 'cook'
+      const list = searchType === 'menu'
         ? await pb.collection('cooks').getFullList()
         : await pb.collection('ingredients').getFullList();
 
@@ -59,7 +59,7 @@ const toggleInputSearch = () => {
         <input
           type='text'
           role='searchbox'
-          placeholder={searchType === 'menu' ? '메뉴를 검색해주세요.' : '재료를 검색해주세요.'}
+          placeholder={searchType === 'cook' ? '메뉴를 검색해주세요.' : '재료를 검색해주세요.'}
           className="w-11/12 h-7 pl-1 placeholder:-text--fridge-input-gray font-nanum border-b-2 -border--fridge-gray focus:outline-none"
           ref={inputRef}
           onKeyDown={(e) => {

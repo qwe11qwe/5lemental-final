@@ -1,11 +1,13 @@
 import { arrowLeft } from '@/assets/icons/svg-icons.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import useCategoryStore from '@/store/category';
 
 function Heading() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
+  const selectedMenu = useCategoryStore((state) => state.selectedMenu);
 
   useEffect(
     () => (pathname === '/signup' ? setTitle('회원가입') : undefined),
@@ -55,8 +57,8 @@ function Heading() {
   );
 
   useEffect(
-    () => (pathname === '/recipedetail' ? setTitle('마라샹궈') : undefined),
-    [pathname]
+    () => (pathname === '/recipedetail' ? setTitle(selectedMenu) : undefined),
+    [pathname, selectedMenu]
   );
 
   useEffect(

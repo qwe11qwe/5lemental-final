@@ -1,45 +1,19 @@
-// import { useState } from 'react';
-
-// function LikeButton({ count = 0 }) {
-//   const [likes, setLikes] = useState(count);
-
-//   const isPressed = likes > count;
-//   console.log(isPressed);
-
-//   const incrementLikes = () => {
-//     setLikes(likes + 1);
-//   };
-
-//   const decrementLikes = () => {
-//     setLikes(likes - 1);
-//   };
-
-//   return (
-//     <div>
-//       <button
-//         onClick={isPressed ? decrementLikes : incrementLikes}
-//         className="h-40"
-//       >
-//         ❤️
-//       </button>
-//       <span>{likes}</span>
-//     </div>
-//   );
-// }
-
-// export default LikeButton;
-
-import { useState } from 'react';
 import pb from '@/api/pocketbase';
-import { getPocketHostImageURL } from '@/utils';
-import BookMarkL from '../BookMark';
+import LikeButton from './LikeButton';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // 데이터 요청 함수 (query function)
-// 페이지 로드 또는 북마크 삭제 요청 시 리패칭 될 때 실행되는 함수입니다.
-const getRecommends = async (userId) => {
-  return await pb.collection('recommends').getFullList({
-    filter: `(userEmail?~'${userId}')`,
+const getcooks = async (userId) => {
+  return await pb.collection('cooks').getFullList({
+    filter: `(email?~'${userId}')`,
     fields: 'collectionId,id,image',
+  });
+};
+
+// 데이터의 userEmail 필드에서 삭제 요청 함수 (mutation function)
+const removeRecommend = async ({ recommendId, userId }) => {
+  return await pb.collection('cooks').update(recommendId, {
+    'userEmail-': userId,
   });
 };
 
@@ -51,46 +25,105 @@ const dummyLoginUserInfo = {
   email: 'janghyeonjuu@gmail.com',
 };
 
-export default function BookmarkList() {
+export default function LikeButtonList() {
   // 로그인 사용자 정보
-
-
   const user = pb.authStore.model ?? dummyLoginUserInfo;
 
-  return (
-    <Router>
-      <div>
-        <Route exact path="/">
-          <HomePage addToFavorites={addToFavorites} />
-        </Route>
-        <Route path="/bookmarks">
-          <LikeButton
-            favorites={favorites}
-            removeFromFavorites={removeFromFavorites}
-          />
-        </Route>
-      </div>
-    </Router>
-  );
-}
+  // 쿼리 클라이언트 인스턴스 가져오기
+  const queryClient = useQueryClient();
 
-function HomePage({ addToFavorites }) {
-  // 이 부분에 실제 데이터를 불러오는 로직이 들어갈 수 있습니다.
-  const items = ['Item1', 'Item2', 'Item3'];
+  // 쿼리 키
+  const queryKey = ['cooks', user.id];
+
+  // React Query를 사용한 데이터 쿼리(query) 요청
+  const { isLoading, error, data } = useQuery({
+    queryKey: queryKey,
+    queryFn: () => getcooks(user.id),
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+  });
+
+  // React Query를 사용한 데이터 수정(mutation) 요청
+  const mutation = useMutation({
+    mutationFn: removeRecommend,
+    onMutate: async ({ recommendId }) => {
+      await queryClient.cancelQueries({ queryKey: queryKey });
+
+      const previousList = queryClient.getQueryData(queryKey);
+
+      queryClient.setQueryData(queryKey, (list) => {
+        return list.filter((item) => item.id !== recommendId);
+      });
+
+      return { previousList };
+    },
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: queryKey });
+    },
+    onError: (error, removedLikeButton, context) => {
+      queryClient.setQueryData(queryKey, context.previousList);
+    },
+  });
+
+  const handleRemoveLikeButton = (recommendId, userId) => async () => {
+    mutation.mutate({
+      recommendId,
+      userId,
+    });
+  };
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div role="alert">{error.toString()}</div>;
+  }
 
   return (
-    <div>
-      {items.map((item) => (
-        <div key={item}>
-          {item}
-          <button onClick={() => addToFavorites(item)}>Add to Favorites</button>
-        </div>
+    <ul className="">
+      {data?.map?.((item) => (
+        <li key={item.id} className="">
+          <button
+            type="button"
+            className=""
+            onClick={handleRemoveLikeButton(item.id, user.id)}
+          >
+            <LikeButton color="#C9ECFF" />
+          </button>
+        </li>
       ))}
-
-      {/* 이동 링크 */}
-      <Link to="/bookmarks">Go to Bookmarks</Link>
-    </div>
+    </ul>
   );
 }
 
-export default App;
+// import { useState } from 'react';
+
+// function LikeButtonButton({ count = 0 }) {
+//   const [LikeButtons, setLikeButtons] = useState(count);
+
+//   const isPressed = LikeButtons > count;
+//   console.log(isPressed);
+
+//   const incrementLikeButtons = () => {
+//     setLikeButtons(LikeButtons + 1);
+//   };
+
+//   const decrementLikeButtons = () => {
+//     setLikeButtons(LikeButtons - 1);
+//   };
+
+//   return (
+//     <div>
+//       <button
+//         onClick={isPressed ? decrementLikeButtons : incrementLikeButtons}
+//         className="h-40"
+//       >
+//         ❤️
+//       </button>
+//       <span>{LikeButtons}</span>
+//     </div>
+//   );
+// }
+
+// export default LikeButtonButton;

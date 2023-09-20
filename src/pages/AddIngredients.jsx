@@ -2,7 +2,7 @@ import IngredientButtonGaro from '@/components/IngredientButtonGaro';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import {search} from '@/assets/icons/svg-icons.js';
-import { Button } from '@/components/button/Button';
+import  Button  from '@/components/button/Button';
 // import Search from './Search';
 
 function AddIngredients() {

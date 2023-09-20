@@ -4,7 +4,6 @@ import IngredientButtonGaro from '../components/IngredientButtonGaro';
 function MyFridge() {
   return (
     <div className="w-screen h-screen">
-      <div className="w-screen h-14"></div>
       <div className="w-screen h-5/6 overflow-y-scroll">
         <IngredientButtonGaro 
         ingredientName={'1'}

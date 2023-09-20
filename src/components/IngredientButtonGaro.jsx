@@ -10,10 +10,10 @@ const url = 'https://orimental-final.pockethost.io';
 const client = new PocketBase(url);
 
 
-function IngredientButtonGaro(ingredientName, print) {
+function IngredientButtonGaro({ingredientName, print}) {
   const { user } = useAuthStore();
-  console.log(user);
-    let ingreName = Object.values(ingredientName);
+  //console.log(user);
+    // let ingreName = Object.values(ingredientName);
     //console.log(ingreName);
   // 사용자 정보 상태
   const [user1, setUser] = useState([]);
@@ -61,16 +61,16 @@ function IngredientButtonGaro(ingredientName, print) {
   }
 
 
-const print1 = Object.values(ingredientName)[1];
-if(print1 == 'Fridge'){
+// const print1 = Object.values(ingredientName)[1]; 
+if(print == 'Fridge'){
     console.log(111);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">
           {cart?.map((ingredient) => {
-            if((ingredient.id != 'undefined') && (user.ingredients_keys != 'undefined') && (ingredient.id != null) && (user.ingredients_keys != null)){
+            if((ingredient.id != 'undefined') && (user1.ingredients_keys != 'undefined') && (ingredient.id != null) && (user1.ingredients_keys != null)){
               let ingreid = ingredient.id;
-              let useringreid = user.ingredients_keys;
+              let useringreid = user1.ingredients_keys;
               if(useringreid.includes(ingreid)){
                 return (
                   <IngredientItemGaro
@@ -78,7 +78,7 @@ if(print1 == 'Fridge'){
                     item={ingredient}
                     user={user}
                     stat={ingredient.stat}
-                    print={print1}
+                    print={print}
                     />
                 )
               } 
@@ -96,14 +96,16 @@ else{
         <ul className="flex flex-wrap justify-around">
           {cart?.map((ingredient) => {
             //! 여기에 props를 이용해 조건부 렌더링으로 진행할 예정입니다
-            if (ingredient.name.includes(ingreName[0])) {
+            let ingreid = ingredient.id;
+            let useringreid = user1.ingredients_keys;
+            if (ingredient.name.includes(ingredientName)) {
               return (
                 <IngredientItemGaro
                   key={ingredient.id}
                   item={ingredient}
                   user={user1}
                   stat={ingredient.stat}
-                  print={print1}
+                  print={print}
                 />
               );
             }

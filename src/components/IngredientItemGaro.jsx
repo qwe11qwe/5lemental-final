@@ -70,7 +70,7 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
             />
             {/* <span>{item.name}</span> */}
           </figure>
-          <div className="w-20 w- flex flex-row justify-center">
+          <div className="w-20 w- flex flex-row justify-center font-dohyeon">
             <span>{item.name}</span>
           </div>
         </li>
@@ -91,7 +91,7 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
             />
             {/* <span>{item.name}</span> */}
           </figure>
-          <div className="w-20 w- flex flex-row justify-center">
+          <div className="w-20 w- flex flex-row justify-center font-dohyeon">
             <span>{item.name}</span>
           </div>
         </li>

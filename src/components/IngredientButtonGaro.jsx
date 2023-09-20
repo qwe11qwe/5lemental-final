@@ -1,7 +1,7 @@
 // import './styles/tailwind.css';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
-import IngredientItemGaro from './ingredient-item-garo';
+import IngredientItemGaro from './IngredientItemGaro';
 import useStore from '@/store/storeState';
 
 const url = 'https://orimental-final.pockethost.io';
@@ -9,7 +9,7 @@ const client = new PocketBase(url);
 
 function IngredientButtonGaro(ingredientName) {
     let ingreName = Object.values(ingredientName);
-    console.log(ingreName);
+    //console.log(ingreName);
   // 사용자 정보 상태
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState('pending');
@@ -57,13 +57,13 @@ function IngredientButtonGaro(ingredientName) {
 
 
 if(ingredientName[0] == ''){
-    console.log(1111);
+    //console.log(1111);
     return (
-        <div>
-          <ul className="flex flex-wrap justify-around">
-            {cart?.map((ingredient) => {
-                return(
-                <IngredientItemGaro
+      <div>
+        <ul className="flex flex-wrap justify-around">
+          {cart?.map((ingredient) => {
+            return (
+              <IngredientItemGaro
                 key={ingredient.id}
                 item={ingredient}
                 user={user}
@@ -77,31 +77,27 @@ if(ingredientName[0] == ''){
       );
 }
 else{
-    console.log(2222);
+    //console.log(2222);
     return (
-        <div>
-          <ul className="flex flex-wrap justify-around">
-            {cart?.map((ingredient) => {
-                //! 여기에 props를 이용해 조건부 렌더링으로 진행할 예정입니다
-                if(ingredient.name.includes(ingreName[0])){
-                    return(
-                        <IngredientItemGaro
-                        key={ingredient.id}
-                        item={ingredient}
-                        user={user}
-                        stat={ingredient.stat}
-                        />
-                    )
-                }
-                
-            
-                
-            })}
-          </ul>
-        </div>
-      );
-}
-  
+      <div>
+        <ul className="flex flex-wrap justify-around">
+          {cart?.map((ingredient) => {
+            //! 여기에 props를 이용해 조건부 렌더링으로 진행할 예정입니다
+            if (ingredient.name.includes(ingreName[0])) {
+              return (
+                <IngredientItemGaro
+                  key={ingredient.id}
+                  item={ingredient}
+                  user={user}
+                  stat={ingredient.stat}
+                />
+              );
+            }
+          })}
+        </ul>
+      </div>
+    );
+  }
 }
 
 /* if(ingredientName.ingredientName == ''){

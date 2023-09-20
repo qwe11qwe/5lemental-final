@@ -7,7 +7,7 @@ import useStore from '@/store/storeState';
 const url = 'https://orimental-final.pockethost.io';
 const client = new PocketBase(url);
 
-function IngredientButtonGaro(ingredientName) {
+function IngredientButtonGaro(ingredientName, print) {
     let ingreName = Object.values(ingredientName);
     //console.log(ingreName);
   // 사용자 정보 상태
@@ -55,29 +55,32 @@ function IngredientButtonGaro(ingredientName) {
     return <div>loading</div>;
   }
 
+console.log(ingredientName);
+console.log(print);
 
-if(ingredientName[0] == ''){
-    //console.log(1111);
+if(print == 'Fridge'){
+    console.log(111);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">
           {cart?.map((ingredient) => {
-            return (
-              <IngredientItemGaro
-                key={ingredient.id}
-                item={ingredient}
-                user={user}
-                stat={ingredient.stat}
-                />
-            )
-                
+            if(ingredient.id.includes(user.ingredients_keys)){
+              return (
+                <IngredientItemGaro
+                  key={ingredient.id}
+                  item={ingredient}
+                  user={user}
+                  stat={ingredient.stat}
+                  />
+              )
+            } 
             })}
           </ul>
         </div>
       );
 }
 else{
-    //console.log(2222);
+    console.log(2222);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">

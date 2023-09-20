@@ -1,9 +1,8 @@
-import SearchInput from '@/components/SearchInput';
-import IngredientButtonGaro from './../components/ingredient-button-garo';
-import { useEffect, useState, useRef } from 'react';
-import debounce from 'lodash.debounce';
+import IngredientButtonGaro from '@/components/IngredientButtonGaro';
+import { useState, useRef } from 'react';
 
 function AddIngredients() {
+  const Add = 'Add';
   const inputRef = useRef(null);
   console.log(inputRef);
   const [inputValue, setInputValue] = useState('');
@@ -35,6 +34,7 @@ function AddIngredients() {
       <div className="w-screen h-3/5 overflow-y-scroll">
         <IngredientButtonGaro
           ingredientName={inputValue}
+          print={Add}
         ></IngredientButtonGaro>
         {/* 여기서 page전달 -> button에서 Add면 전체 출력, Fridge면 보유한 것만 출력하도록 -> item에서 Add면 누르게, Fridge면 못누르게 */}
       </div>

@@ -10,7 +10,9 @@ function Button({
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    if (type === 'button') {
+    if (navigateTo === '-1') {
+      navigate(-1);
+    } else {
       navigate(navigateTo);
     }
   };

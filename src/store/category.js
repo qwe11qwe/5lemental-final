@@ -1,15 +1,14 @@
 import pb from '@/api/pocketbase';
 import { create } from 'zustand';
 
-const initialCategoryState = {
+const initialMenuState = {
   category: '한식',
   categoryMenuList: [],
-  categoryFileNameList: [],
-  categoryImageList: [],
+  selectedMenu: '',
 };
 
 const useCategoryStore = create((set) => ({
-  ...initialCategoryState,
+  ...initialMenuState,
 
   setCategory: (category) => {
     set((state) => ({
@@ -17,6 +16,14 @@ const useCategoryStore = create((set) => ({
       category,
     }));
     return category;
+  },
+
+  setSelectedMenu: (selectedMenu) => {
+    set((state) => ({
+      ...state,
+      selectedMenu,
+    }));
+    return selectedMenu;
   },
 
   getMenu: async (category) => {

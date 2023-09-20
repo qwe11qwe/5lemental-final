@@ -1,4 +1,4 @@
-import { getPbImageURL } from '@/utils/getPblmageURL';
+import { getPbImageURL } from '@/utils/getPbImageURL';
 import PocketBase from 'pocketbase';
 import useStore from '../store/storeState';
 

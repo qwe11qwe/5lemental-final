@@ -23,12 +23,14 @@ function SignIn() {
       ...formState,
       [name]: value,
     });
-  }, 400);
+  }, 100);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     const { id, password } = formState;
 
+    console.log('id', id);
+    console.log('pw', password);
     try {
       await signIn(id, password);
     } catch (error) {
@@ -37,10 +39,11 @@ function SignIn() {
   };
 
   useEffect(() => {
+    console.log(isValid);
     if (isValid) {
       navigate('/home');
     }
-  }, [isValid, navigate]);
+  }, [isValid]);
 
   return (
     <>

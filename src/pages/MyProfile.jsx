@@ -12,7 +12,7 @@ function MyProfile() {
   console.log(user);
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate('/MyFridge');
+    navigate('/myfridge');
   };
 
   const [profileName, setProfileName] = useState('');

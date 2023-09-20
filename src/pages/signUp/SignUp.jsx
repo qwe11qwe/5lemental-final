@@ -74,9 +74,25 @@ function SignUp() {
     }
   };
 
-  const checkSignUp = async () => {
+  const checkSignUp = async (e) => {
+    e.preventDefault();
     const { id, nickname, password, passwordConfirm } = formState;
 
+    // 1. 기본 정보 입력, 필수 약관 동의 확인
+    if (
+      id === '' ||
+      nickname === '' ||
+      password === '' ||
+      passwordConfirm === ''
+    ) {
+      toast.error('가입 정보를 모두 입력해주세요.');
+    }
+
+    if (checkboxes.agree1 !== true || checkboxes.agree2 !== true) {
+      toast.error('필수 약관에 동의해주세요.');
+    }
+
+    // 2. id, nickname, password, passwordConfirm 유효성 검사
     try {
       const handleIdCheck = async () => {
         console.log('포켓베이스 - id 중복체크');
@@ -88,7 +104,6 @@ function SignUp() {
             setIdCheck(true);
             setIdAlert('멋진 id 네요!');
             setId(id);
-            console.log(id);
           } else if (responseID.items.length > 0) {
             setIdCheck(false);
             setIdAlert('이미 사용중인 아이디입니다.');
@@ -159,47 +174,11 @@ function SignUp() {
     }
 
     if (
-      id === '' ||
-      nickname === '' ||
-      password === '' ||
-      passwordConfirm === ''
-    ) {
-      toast.error('가입 정보를 모두 입력해주세요.');
-    }
-
-    if (checkboxes.agree1 !== true || checkboxes.agree2 !== true) {
-      toast.error('필수 약관에 동의해주세요.');
-    }
-
-    if (
       (checkboxes.agree1 === true && checkboxes.agree2 === true) ||
       checkboxes.agreeAll === true
     ) {
       setAgreeCheck(true);
     }
-
-    console.log(confirmJoin);
-
-    if (confirmJoin === true) {
-      triggerSignUp();
-    }
-  };
-
-  const preventFormEvent = (e) => {
-    e.preventDefault();
-  };
-
-  const triggerSignUp = () => {
-    if (confirmJoin === true) {
-      handleJoin(id, nickname, password, passwordConfirm);
-    }
-  };
-
-  const handleSignUp = (e) => {
-    preventFormEvent(e);
-    checkSignUp().then(() => {
-      triggerSignUp();
-    });
   };
 
   useEffect(() => {
@@ -211,10 +190,17 @@ function SignUp() {
     ) {
       if (agreeCheck === true) {
         setConfirmJoin(true);
-        checkSignUp();
+        console.log('회원가입 가능');
       }
     }
-  }, [checkSignUp]);
+  }, [id, nickname, password, passwordConfirm, agreeCheck]);
+
+  useEffect(() => {
+    if (confirmJoin === true) {
+      console.log('회원가입 시도', confirmJoin);
+      handleJoin(id, nickname, password, passwordConfirm);
+    }
+  }, [confirmJoin]);
 
   const handleJoin = (username, name, password, passwordConfirm) => {
     const newUser = {
@@ -248,7 +234,7 @@ function SignUp() {
           pauseOnHover
           theme="colored"
         />
-        <form onSubmit={handleSignUp}>
+        <form onSubmit={checkSignUp}>
           <div className="signUpWrapper -bg--fridge-secondary flex justify-center items-center flex-wrap flex-col w-screen pt-3 pb-3">
             <div className="signUpContainer w-full max-w-[820px] px-[20px]">
               <h2 className="font-dohyeon -text--fridge-black text-[15px] text-left mb-1">

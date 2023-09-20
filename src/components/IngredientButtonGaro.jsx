@@ -1,17 +1,22 @@
 // import './styles/tailwind.css';
+import useAuthStore from '@/store/auth';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import IngredientItemGaro from './IngredientItemGaro';
 import useStore from '@/store/storeState';
 
+
 const url = 'https://orimental-final.pockethost.io';
 const client = new PocketBase(url);
 
+
 function IngredientButtonGaro(ingredientName, print) {
+  const { user } = useAuthStore();
+  console.log(user);
     let ingreName = Object.values(ingredientName);
     //console.log(ingreName);
   // 사용자 정보 상태
-  const [user, setUser] = useState(null);
+  const [user1, setUser] = useState([]);
   const [status, setStatus] = useState('pending');
 
   // Zustand 상태 및 업데이트 함수
@@ -29,13 +34,13 @@ function IngredientButtonGaro(ingredientName, print) {
       const userList = await client.collection('users').getFullList();
 
       // 사용자 정보 추출
-      const user = userList[0];
+      const user2 = userList[0];
 
       // ingredientList 배열 순환 및 Zustand의 cart 상태 업데이트
       setCart(
         ingredientList.map((ingredient) => {
           let hasId;
-          for (const id of user.ingredients_keys) {
+          for (const id of user2.ingredients_keys) {
             hasId = id === ingredient.id;
             if (hasId) break;
           }
@@ -44,7 +49,7 @@ function IngredientButtonGaro(ingredientName, print) {
       );
 
       // 사용자 정보 업데이트
-      setUser(user);
+      setUser(user2);
       setStatus('pending');
     }
 
@@ -55,25 +60,30 @@ function IngredientButtonGaro(ingredientName, print) {
     return <div>loading</div>;
   }
 
-console.log(ingredientName);
-console.log(print);
 
-if(print == 'Fridge'){
+const print1 = Object.values(ingredientName)[1];
+if(print1 == 'Fridge'){
     console.log(111);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">
           {cart?.map((ingredient) => {
-            if(ingredient.id.includes(user.ingredients_keys)){
-              return (
-                <IngredientItemGaro
-                  key={ingredient.id}
-                  item={ingredient}
-                  user={user}
-                  stat={ingredient.stat}
-                  />
-              )
-            } 
+            if((ingredient.id != 'undefined') && (user.ingredients_keys != 'undefined') && (ingredient.id != null) && (user.ingredients_keys != null)){
+              let ingreid = ingredient.id;
+              let useringreid = user.ingredients_keys;
+              if(useringreid.includes(ingreid)){
+                return (
+                  <IngredientItemGaro
+                    key={ingredient.id}
+                    item={ingredient}
+                    user={user}
+                    stat={ingredient.stat}
+                    print={print1}
+                    />
+                )
+              } 
+            }
+            
             })}
           </ul>
         </div>
@@ -91,8 +101,9 @@ else{
                 <IngredientItemGaro
                   key={ingredient.id}
                   item={ingredient}
-                  user={user}
+                  user={user1}
                   stat={ingredient.stat}
+                  print={print1}
                 />
               );
             }

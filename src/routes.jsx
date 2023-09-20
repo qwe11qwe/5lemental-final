@@ -12,7 +12,7 @@ import MyProfile from './pages/MyProfile';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeLiked from './pages/RecipeLiked';
 import Search from './pages/Search';
-import SignUp from './pages/SignUp';
+import SignUp from './pages/signUp/SignUp';
 import Start from './pages/Start';
 
 const router = createBrowserRouter(
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Start />} />
-        <Route path="addIngredients" element={<AddIngredients />} />
+        <Route path="addingredients" element={<AddIngredients />} />
         <Route path="fridgemenu" element={<FridgeMenu />} />
         <Route path="home" element={<Home />} />
         <Route path="menulist" element={<MenuList />} />

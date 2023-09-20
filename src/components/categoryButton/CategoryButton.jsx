@@ -1,46 +1,46 @@
-import { useState } from 'react';
 import S from './CategoryButton.module.css';
+import useCategoryStore from '@/store/category';
 
 function CategoryButton() {
-  const [selected, setSelected] = useState('');
+  const { category, setCategory } = useCategoryStore();
 
   const handleSelect = (category) => {
-    setSelected(category);
+    setCategory(category);
   };
 
   return (
     <>
-      <div className="wrapper max-w-[820px] m-auto flex justify-center items-center mt-[10px]">
+      <div className="wrapper max-w-[820px] m-auto flex flex-col justify-start items-center mt-[10px]">
         <div className="container flex justify-center items-center gap-2">
           <button
             onClick={() => {
-              handleSelect('korean');
+              handleSelect('한식');
             }}
-            className={selected === 'korean' ? S.selected : S.notSelected}
+            className={category === '한식' ? S.selected : S.notSelected}
           >
             한식
           </button>
           <button
             onClick={() => {
-              handleSelect('japanese');
+              handleSelect('일식');
             }}
-            className={selected === 'japanese' ? S.selected : S.notSelected}
+            className={category === '일식' ? S.selected : S.notSelected}
           >
             일식
           </button>
           <button
             onClick={() => {
-              handleSelect('chinese');
+              handleSelect('중식');
             }}
-            className={selected === 'chinese' ? S.selected : S.notSelected}
+            className={category === '중식' ? S.selected : S.notSelected}
           >
             중식
           </button>
           <button
             onClick={() => {
-              handleSelect('western');
+              handleSelect('양식');
             }}
-            className={selected === 'western' ? S.selected : S.notSelected}
+            className={category === '양식' ? S.selected : S.notSelected}
           >
             양식
           </button>

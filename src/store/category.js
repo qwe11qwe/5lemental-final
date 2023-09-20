@@ -2,7 +2,7 @@ import pb from '@/api/pocketbase';
 import { create } from 'zustand';
 
 const initialCategoryState = {
-  category: '',
+  category: '한식',
   categoryMenuList: [],
   categoryFileNameList: [],
   categoryImageList: [],

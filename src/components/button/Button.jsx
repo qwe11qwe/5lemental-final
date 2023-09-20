@@ -13,7 +13,7 @@ function Button({
       if (navigateTo === '-1') {
         navigate(-1);
       } else {
-        navigate({ navigateTo });
+        navigate(navigateTo);
       }
     }
   };

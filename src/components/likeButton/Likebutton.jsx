@@ -37,7 +37,7 @@ export default function BookmarkList() {
   const queryKey = ['recommends', user.id];
 
   // React Query를 사용한 데이터 쿼리(query) 요청
-  const { isFetching, isLoading, error, data } = useQuery({
+  const { isLoading, error, data } = useQuery({
     queryKey: queryKey,
     queryFn: () => getRecommends(user.id),
     refetchOnReconnect: false,
@@ -102,34 +102,3 @@ export default function BookmarkList() {
     </ul>
   );
 }
-
-// import { useState } from 'react';
-
-// function LikeButtonButton({ count = 0 }) {
-//   const [LikeButtons, setLikeButtons] = useState(count);
-
-//   const isPressed = LikeButtons > count;
-//   console.log(isPressed);
-
-//   const incrementLikeButtons = () => {
-//     setLikeButtons(LikeButtons + 1);
-//   };
-
-//   const decrementLikeButtons = () => {
-//     setLikeButtons(LikeButtons - 1);
-//   };
-
-//   return (
-//     <div>
-//       <button
-//         onClick={isPressed ? decrementLikeButtons : incrementLikeButtons}
-//         className="h-40"
-//       >
-//         ❤️
-//       </button>
-//       <span>{LikeButtons}</span>
-//     </div>
-//   );
-// }
-
-// export default LikeButtonButton;

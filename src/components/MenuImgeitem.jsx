@@ -45,7 +45,7 @@ export default function cookstItem({ item, user, stat }) {
         handle(stat, item, user);
       }}
     >
-      <button alt="@/RecipeDetail" className="bg-slate-300 py-3">
+      <button alt="@/RecipeDetail" className="fridge-bg-gray : F5F5F5 py-3">
         <div className="">
           <figure className="w-16 h-16 float-left ">
             <img src={getPbImageURL(item, 'photo')} alt="" className="" />

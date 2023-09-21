@@ -1,5 +1,3 @@
-function RecipeLiked () {
+function RecipeLiked() {}
 
-}
-
-export default RecipeLiked
+export default RecipeLiked;

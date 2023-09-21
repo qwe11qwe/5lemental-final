@@ -33,7 +33,7 @@ function RecipeDetail() {
     <>
       <div className="wrapper w-screen h-full px-[16px] pt-[20px] -bg--fridge-white flex ">
         <div className="container max-w-[820px] mx-auto mb-[70px] flex flex-wrap flex-col justify-center items-start">
-          <div className="imageContainer w-full">
+          <div className="imageContainer w-full mb-[20px]">
             <img
               className="w-[285px] h-[195px] rounded-[10px] flex justify-center items-center"
               src={menuImage}

@@ -5,7 +5,6 @@ const initialMenuState = {
   category: '한식',
   categoryMenuList: [],
   selectedMenu: '',
-  ingredientsKeys: [],
 };
 
 const useCategoryStore = create((set) => ({
@@ -51,7 +50,43 @@ const useCategoryStore = create((set) => ({
       ingredientsKeys: ingredientsKeys,
     }));
 
-    return ingredientsResponse.items;
+    return ingredientsKeys;
+  },
+
+  getIngredientsName: async (ingredientsKey) => {
+    const ingredientsResponse = await pb
+      .collection('ingredients')
+      .getFullList({ filter: `id = "${ingredientsKey}"` });
+
+    console.log(ingredientsResponse[0].name);
+
+    set((state) => ({
+      ...state,
+      ingredientsName: ingredientsResponse[0].name,
+    }));
+
+    return ingredientsResponse[0].name;
+  },
+
+  getIngredientsImage: async (ingredientsKey) => {
+    const ingredientsResponse = await pb
+      .collection('ingredients')
+      .getFullList({ filter: `id = "${ingredientsKey}"` });
+
+    const imageURL = pb.files.getUrl(
+      ingredientsResponse[0],
+      ingredientsResponse[0].photo,
+      {
+        thumb: '60x60',
+      }
+    );
+
+    set((state) => ({
+      ...state,
+      ingredientsName: imageURL,
+    }));
+
+    return imageURL;
   },
 }));
 

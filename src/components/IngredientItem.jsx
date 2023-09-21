@@ -41,7 +41,7 @@ function IngredientItem() {
 
   return (
     <>
-      <div className="flex gap-1 flex-wrap justify-center">
+      <div className="flex gap-1 flex-wrap justify-center max-w-[500px]">
         {ingredientsName.map((ingredient, index) => (
           <div
             key={index}

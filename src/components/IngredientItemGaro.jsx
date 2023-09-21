@@ -56,7 +56,7 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
       stat ? (
         <li
           key={item.id}
-          className="bg-sky-300 w-[133px] h-[77px] rounded-xl flex flex-row items-center my-[7px] mx-[10px]"
+          className="-bg--fridge-skyblue w-[133px] h-[77px] rounded-xl flex flex-row items-center"
           onClick={() => {
             console.log('stat : ', stat);
             handle(stat);
@@ -79,7 +79,7 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
       ) : (
         <li
           key={item.id}
-          className="-bg--fridge-bg-gray w-[133px] h-[77px] rounded-xl flex flex-row items-center my-[7px] mx-[10px]"
+          className="-bg--fridge-bg-gray w-[133px] h-[77px] rounded-xl flex flex-row items-center"
           onClick={() => {
             console.log('stat : ', stat);
             handle(stat);

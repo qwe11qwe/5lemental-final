@@ -86,7 +86,7 @@ if(print == 'Fridge'){
 else{
     return (
       <div>
-        <ul className="flex flex-wrap justify-around">
+        <ul className="flex flex-wrap gap-2 justify-around">
           {cart?.map((ingredient) => {
             if (ingredient.name.includes(ingredientName)) {
               return (

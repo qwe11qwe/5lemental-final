@@ -1,11 +1,11 @@
 import IngredientItem from '@/components/IngredientItem';
 
-function RecipeDetail () {
-  return(
+function RecipeDetail() {
+  return (
     <>
-      <IngredientItem/>
+      <IngredientItem />
     </>
-  )
+  );
 }
 
-export default RecipeDetail
+export default RecipeDetail;

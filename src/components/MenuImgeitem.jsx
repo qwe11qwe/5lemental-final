@@ -1,4 +1,4 @@
-import { getPbImageURL } from '@/utils/getPblmageURL';
+import { getPbImageURL } from '@/utils/getPbImageURL';
 import client from '@/api/pocketbase';
 
 export default function cookstItem({ item, user, stat }) {

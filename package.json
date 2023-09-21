@@ -20,6 +20,7 @@
     "gsap": "3.12.2",
     "immer": "10.0.2",
     "lodash.debounce": "^4.0.8",
+    "netlify-cli": "^16.4.0",
     "pocketbase": "0.16.0",
     "prop-types": "15.8.1",
     "ramda": "0.29.0",

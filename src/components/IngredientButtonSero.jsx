@@ -14,12 +14,14 @@ function IngredientButtonSero () {
     async function fetchList() {
       try {
         // PocketBase 에서 나의 재료 정보 불러오기
-        const myList = await pb
-        .collection('users')
-        .getFirstListItem( { filter: `id = "${user}"` });
-        console.log(myList)
-        setMyIngredient(myList.items[0].ingredients_keys) 
-        console.log(myIngredient);
+        const loginUser = await pb.collection('users').getOne(user, {
+          expand: 'ingredients_keys',
+        });
+        console.log(
+          'expand.ingredients_keys\n',
+          loginUser.expand.ingredients_keys
+        );
+        setMyIngredient(loginUser.expand.ingredients_keys);
       }
       catch (error) {
         console.error('Error fetching data:', error);

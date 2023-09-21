@@ -39,6 +39,15 @@ const useCategoryStore = create((set) => ({
     return nameResponse.items;
   },
 
+  getDescription: async (menuName) => {
+    const recipeResponse = await pb
+      .collection('cooks')
+      .getFullList({ filter: `name = "${menuName}"` });
+
+    const recipe = recipeResponse[0].description;
+    return recipe;
+  },
+
   getIngredientsKeys: async (selectedMenu) => {
     const ingredientsResponse = await pb
       .collection('cooks')
@@ -60,11 +69,6 @@ const useCategoryStore = create((set) => ({
 
     console.log(ingredientsResponse[0].name);
 
-    set((state) => ({
-      ...state,
-      ingredientsName: ingredientsResponse[0].name,
-    }));
-
     return ingredientsResponse[0].name;
   },
 
@@ -80,11 +84,6 @@ const useCategoryStore = create((set) => ({
         thumb: '60x60',
       }
     );
-
-    set((state) => ({
-      ...state,
-      ingredientsName: imageURL,
-    }));
 
     return imageURL;
   },

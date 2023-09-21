@@ -12,15 +12,13 @@ function IngredientItem() {
   const [ingredientsName, setIngredientsName] = useState([]);
   const [ingredientsImage, setIngredientsImage] = useState([]);
 
-  // 재료 이름을 불러와 배열에 저장
   useEffect(() => {
     getIngredientsKeys(selectedMenu)
-      .then((result) => {
-        result.map((item) => {
-          getIngredientsName(item).then((result) => {
-            setIngredientsName((ingredients) => [...ingredients, result]);
-          });
-        });
+      .then((keys) => {
+        return Promise.all(keys.map((key) => getIngredientsName(key)));
+      })
+      .then((namesArray) => {
+        setIngredientsName(namesArray);
       })
       .catch((err) => {
         console.log(err);
@@ -30,12 +28,11 @@ function IngredientItem() {
   // 재료 파일 URL을 불러와 배열에 저장
   useEffect(() => {
     getIngredientsKeys(selectedMenu)
-      .then((result) => {
-        result.map((item) => {
-          getIngredientsImage(item).then((result) => {
-            setIngredientsImage((ingredients) => [...ingredients, result]);
-          });
-        });
+      .then((keys) => {
+        return Promise.all(keys.map((key) => getIngredientsImage(key)));
+      })
+      .then((imagesArray) => {
+        setIngredientsImage(imagesArray);
       })
       .catch((err) => {
         console.log(err);

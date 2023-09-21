@@ -52,7 +52,7 @@ function IngredientButtonSero () {
               <img
                 src={getPbImageURL(item,'photo')}
                 alt={item.name}
-                className='w-full h-full'
+                className='mx-auto'
               />
             </div>
           <span className="font-dohyeon text-[12px] text-center mt-[6px]">

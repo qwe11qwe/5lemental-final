@@ -1,20 +1,20 @@
 import IngredientButtonSero from '@/components/IngredientButtonSero';
 import SearchInput from '@/components/SearchInput';
+import Title from '@/components/Title';
 import Button from '@/components/button/Button';
 
 function Home() {
 
   return(
-    <>
     <div className='px-5 w-full max-w-[820px] m-auto'>
       <SearchInput searchType='menu'></SearchInput>
-      <span className='font-dohyeon'>내 재료</span>
+      <Title size='base' contents='내 재료'/>
       <IngredientButtonSero></IngredientButtonSero>
+      <Title size='xl' contents='오늘 뭐 먹지?'/>
       <Button type='button'>
         내 냉장고 속 재료로 요리하기
       </Button>
-      </div>
-    </>
+    </div>
   )
 }
 

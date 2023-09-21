@@ -5,6 +5,7 @@ const initialMenuState = {
   category: '한식',
   categoryMenuList: [],
   selectedMenu: '',
+  ingredientsKeys: [],
 };
 
 const useCategoryStore = create((set) => ({
@@ -37,6 +38,20 @@ const useCategoryStore = create((set) => ({
     }));
 
     return nameResponse.items;
+  },
+
+  getIngredientsKeys: async (selectedMenu) => {
+    const ingredientsResponse = await pb
+      .collection('cooks')
+      .getFullList({ filter: `name = "${selectedMenu}"` });
+    const ingredientsKeys = ingredientsResponse[0].ingredients_keys;
+
+    set((state) => ({
+      ...state,
+      ingredientsKeys: ingredientsKeys,
+    }));
+
+    return ingredientsResponse.items;
   },
 }));
 

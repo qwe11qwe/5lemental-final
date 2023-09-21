@@ -16,7 +16,6 @@ function MyProfile() {
   };
 
   const [profileName, setProfileName] = useState('');
-  const [fileName, setFileName] = useState('');
   const [profileImage, setProfileImage] = useState('');
 
   const handleSignOut = async (e) => {
@@ -26,7 +25,7 @@ function MyProfile() {
         toast.info('로그아웃 되었습니다.');
         setTimeout(() => {
           navigate('/signin');
-        }, 3000);
+        }, 1000);
       });
     } catch (error) {
       console.log(error);
@@ -42,16 +41,28 @@ function MyProfile() {
           .getList(1, 10, { filter: `id = "${user}"` });
         setProfileName(nameResponse.items[0].name);
         console.log(profileName);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    handleProfile();
+  }, [profileName, user]);
 
+  useEffect(() => {
+    const handleProfile = async () => {
+      try {
         // PocketBase 에서 프로필 이미지 가져오기
         const imageResponse = await pb
           .collection('users')
           .getList(1, 10, { filter: `id = "${user}"` });
-        setFileName(imageResponse.items[0].avatar);
         setProfileImage(
-          pb.files.getUrl(imageResponse.items[0], fileName, {
-            thumb: '80x80',
-          })
+          pb.files.getUrl(
+            imageResponse.items[0],
+            imageResponse.items[0].avatar,
+            {
+              thumb: '80x80',
+            }
+          )
         );
         console.log(profileImage);
       } catch (error) {
@@ -59,14 +70,14 @@ function MyProfile() {
       }
     };
     handleProfile();
-  }, [profileName, profileImage, fileName, user]);
+  }, [profileImage, user]);
 
   return (
     <>
       <div className="wrapper w-screen px-[26px] pt-[25px] -bg--fridge-white flex flex-nowrap flex-col">
         <ToastContainer
           position="top-center"
-          autoClose={3000}
+          autoClose={1000}
           limit={1}
           hideProgressBar={false}
           newestOnTop={false}

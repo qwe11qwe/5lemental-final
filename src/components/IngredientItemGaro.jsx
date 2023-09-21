@@ -33,17 +33,17 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
     <button>
         <li
         key={item.id}
-        className="-bg--fridge-gray w-32 h-16 rounded-xl flex flex-row items-center my-2"
+        className="-bg--fridge-gray w-[133px] h-[77px] rounded-xl flex flex-row items-center my-[7px]"
       >
         <figure>
           <img
             src={getPbImageURL(item, 'photo')}
-            className="w-12 h-12"
+            className="w-12 h-12 ml-2"
             alt=""
           />
           {/* <span>{item.name}</span> */}
         </figure>
-        <div className="w-20 w- flex flex-row justify-center">
+        <div className="w-20 w- flex flex-row justify-center font-dohyeon">
           <span>{item.name}</span>
         </div>
       </li>
@@ -56,44 +56,49 @@ export default function IngredientItemGaro({ item, user, stat, print }) {
       stat ? (
         <li
           key={item.id}
-          className="bg-sky-300 w-32 h-16 rounded-xl flex flex-row items-center my-2"
+          className="bg-sky-300 w-[133px] h-[77px] rounded-xl flex flex-row items-center my-[7px] mx-[10px]"
           onClick={() => {
             console.log('stat : ', stat);
             handle(stat);
           }}
         >
-          <figure>
-            <img
-              src={getPbImageURL(item, 'photo')}
-              className="w-12 h-12"
-              alt=""
-            />
-            {/* <span>{item.name}</span> */}
-          </figure>
-          <div className="w-20 w- flex flex-row justify-center font-dohyeon">
-            <span>{item.name}</span>
+          <div className='flex flex-row items-center justify-center'>
+            <figure>
+              <img
+                src={getPbImageURL(item, 'photo')}
+                className="w-12 h-12 ml-2"
+                alt=""
+              />
+              {/* <span>{item.name}</span> */}
+            </figure>
+            <div className="w-20 flex flex-row justify-center font-dohyeon">
+              <span>{item.name}</span>
+            </div>
           </div>
         </li>
       ) : (
         <li
           key={item.id}
-          className="-bg--fridge-gray w-32 h-16 rounded-xl flex flex-row items-center my-2"
+          className="-bg--fridge-bg-gray w-[133px] h-[77px] rounded-xl flex flex-row items-center my-[7px] mx-[10px]"
           onClick={() => {
             console.log('stat : ', stat);
             handle(stat);
           }}
         >
-          <figure>
-            <img
-              src={getPbImageURL(item, 'photo')}
-              className="w-12 h-12"
-              alt=""
-            />
-            {/* <span>{item.name}</span> */}
-          </figure>
-          <div className="w-20 w- flex flex-row justify-center font-dohyeon">
-            <span>{item.name}</span>
+          <div className='flex flex-row items-center justify-between'>
+            <figure>
+              <img
+                src={getPbImageURL(item, 'photo')}
+                className="w-12 h-12 ml-2"
+                alt=""
+              />
+              {/* <span>{item.name}</span> */}
+            </figure>
+            <div className="w-20 flex flex-row justify-center font-dohyeon">
+              <span>{item.name}</span>
+            </div>
           </div>
+          
         </li>
       )
     );

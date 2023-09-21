@@ -5,16 +5,11 @@ import { useEffect, useState } from 'react';
 import IngredientItemGaro from './IngredientItemGaro';
 import useStore from '@/store/storeState';
 
-
 const url = 'https://orimental-final.pockethost.io';
 const client = new PocketBase(url);
 
-
 function IngredientButtonGaro({ingredientName, print}) {
   const { user } = useAuthStore();
-  //console.log(user);
-    // let ingreName = Object.values(ingredientName);
-    //console.log(ingreName);
   // 사용자 정보 상태
   const [user1, setUser] = useState([]);
   const [status, setStatus] = useState('pending');
@@ -61,7 +56,6 @@ function IngredientButtonGaro({ingredientName, print}) {
   }
 
 
-// const print1 = Object.values(ingredientName)[1]; 
 if(print == 'Fridge'){
     console.log(111);
     return (
@@ -90,14 +84,10 @@ if(print == 'Fridge'){
       );
 }
 else{
-    console.log(2222);
     return (
       <div>
         <ul className="flex flex-wrap justify-around">
           {cart?.map((ingredient) => {
-            //! 여기에 props를 이용해 조건부 렌더링으로 진행할 예정입니다
-            let ingreid = ingredient.id;
-            let useringreid = user1.ingredients_keys;
             if (ingredient.name.includes(ingredientName)) {
               return (
                 <IngredientItemGaro
@@ -115,29 +105,5 @@ else{
     );
   }
 }
-
-/* if(ingredientName.ingredientName == ''){
-        console.log(111);
-        return(
-            <div> 
-                <ul className="flex flex-wrap justify-around">{data?.map((ingredient)=>{
-                    return <IngredientItemGaro key={ingredient.id} item={ingredient} user={data3} stat={ data2.indexOf(ingredient.id) !== -1 ? 1 : 0 } 
-                    />
-                    // return <li key={ingredient.id} className='w-32 h-20 bg-gray-400 rounded-lg text-center  '>{ingredient.photo}</li>
-                })}</ul>
-            </div>
-        )
-    }
-    else{
-        return(
-            <div> 
-                <ul className="flex flex-wrap justify-around">{data?.map((ingredient)=>{
-                    return <IngredientItemGaro key={ingredient.id} item={ingredient} user={data3} stat={ data2.indexOf(ingredient.id) !== -1 ? 1 : 0 } 
-                    />
-                    // return <li key={ingredient.id} className='w-32 h-20 bg-gray-400 rounded-lg text-center  '>{ingredient.photo}</li>
-                })}</ul>
-            </div>
-        )
-    } */
 
 export default IngredientButtonGaro;

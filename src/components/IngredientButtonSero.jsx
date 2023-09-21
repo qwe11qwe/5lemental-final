@@ -32,7 +32,7 @@ function IngredientButtonSero () {
 
   return(
     <div className='flex gap-2 max-w-[820px] m-auto w-full'>
-      {data.map((item) => (
+      {myIngredient.map((item) => (
         <div
           className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center"
           key={item.id}>

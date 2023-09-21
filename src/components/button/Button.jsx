@@ -8,13 +8,15 @@ function Button({
   ...restProps
 }) {
   const navigate = useNavigate();
-
   const handleNavigate = () => {
     if (type === 'button') {
-      navigate(navigateTo);
+      if (navigateTo === '-1') {
+        navigate(-1);
+      } else {
+        navigate(navigateTo);
+      }
     }
   };
-
   return (
     <button
       type={type}

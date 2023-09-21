@@ -115,7 +115,7 @@ function MyProfile() {
               <Button type="button" navigateTo="/recipeliked" small>
                 좋아요 한 음식
               </Button>
-              <Button type="button" small>
+              <Button type="button" navigateTo="/menulist" small>
                 랜덤메뉴
               </Button>
             </div>

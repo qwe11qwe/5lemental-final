@@ -35,7 +35,7 @@ function IngredientButtonSero () {
       <div className='flex ml-5 gap-2'>
         {myIngredient.map((item) => (
           <div
-            className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center"
+            className="w-[78px] h-[95px] -bg--fridge-bg-gray border-none rounded-md flex flex-col justify-center self-center"
             key={item.id}>
             <div className="w-[62px] h-[62px] items-center mx-2">
               <img

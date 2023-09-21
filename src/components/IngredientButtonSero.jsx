@@ -4,8 +4,6 @@ import { getPbImageURL } from "@/utils/getPbImageURL"
 import useAuthStore from '@/store/auth';
 
 function IngredientButtonSero () {
-  // 전체 재료 정보
-  const [data, setData] = useState([]);
   // 내 재료 정보
   const [myIngredient, setMyIngredient] = useState([]);
 
@@ -15,10 +13,6 @@ function IngredientButtonSero () {
   useEffect(() => {
     async function fetchList() {
       try {
-        // 전체 재료 정보 불러오기
-        const list = await pb.collection('ingredients').getFullList();
-        setData(list)
-
         // PocketBase 에서 나의 재료 정보 불러오기
         const myList = await pb
         .collection('users')

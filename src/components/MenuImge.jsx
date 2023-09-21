@@ -36,8 +36,8 @@ function FoodlistButton() {
   }
 
   return (
-    <div className=" bg-green-500">
-      <ul className="bg-slate-300">
+    <div className=" bg-slate-300">
+      <ul className=" ">
         {data.map((item) => (
           <MenuImgeitem
             key={item.id}

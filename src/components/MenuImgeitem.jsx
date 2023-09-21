@@ -45,18 +45,20 @@ export default function cookstItem({ item, user, stat }) {
         handle(stat, item, user);
       }}
     >
-      <button alt="/" className="bg-slate-200 rounded-md ">
-        <figure className="w-16 h-16 object-cover float-left ">
-          <img src={getPbImageURL(item, 'photo')} alt="" />
-          {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
-        </figure>
-        <div className="bg-red-600">
-          <span className="bg-white text-xs rounded-md grid w-max">
-            {item.name}
-          </span>
-          <span className="bg-blue-700 text-xs float-left truncate ">
-            {item.description}
-          </span>
+      <button alt="@/RecipeDetail" className="bg-slate-300 py-3">
+        <div className="">
+          <figure className="w-16 h-16 float-left ">
+            <img src={getPbImageURL(item, 'photo')} alt="" className="" />
+            {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
+          </figure>
+          <div className="bg-slate-400 rounded-md">
+            <span className="bg-white text-xs rounded-md grid ">
+              {item.name}
+            </span>
+            <span className="bg-blue-700 text-xs text-left ">
+              {item.description}
+            </span>
+          </div>
         </div>
       </button>
     </li>

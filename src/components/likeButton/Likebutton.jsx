@@ -1,101 +1,63 @@
-import pb from '@/api/pocketbase';
-import LikeButton from './LikeButton';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import pocketbase from '@/api/pocketbase';
+import { getPocketHostImageURL } from '@/utils';
+import Likebutton from './Likebutton';
 
 // 데이터 요청 함수 (query function)
-const getcooks = async (userId) => {
-  return await pb.collection('cooks').getFullList({
-    filter: `(email?~'${userId}')`,
+// 페이지 로드 또는 북마크 삭제 요청 시 리패칭 될 때 실행되는 함수입니다.
+const getRecommends = async (userId) => {
+  return await pocketbase.collection('recommends').getFullList({
+    filter: `(userEmail?~'${userId}')`,
     fields: 'collectionId,id,image',
   });
 };
 
-// 데이터의 userEmail 필드에서 삭제 요청 함수 (mutation function)
-const removeRecommend = async ({ recommendId, userId }) => {
-  return await pb.collection('cooks').update(recommendId, {
-    'userEmail-': userId,
-  });
-};
-
 // 로그인 사용자 (더미 데이터)
-// 실제 로그인 후 `pb.authStore.model`에서 정보를 가져올 수 있습니다.
+// 실제 로그인 후 `pocketbase.authStore.model`에서 정보를 가져올 수 있습니다.
 const dummyLoginUserInfo = {
   id: 'ypejq0ceyg9dpza',
   username: 'hyeonjuu',
   email: 'janghyeonjuu@gmail.com',
 };
 
-export default function LikeButtonList() {
+export default function BookmarkList() {
   // 로그인 사용자 정보
-  const user = pb.authStore.model ?? dummyLoginUserInfo;
+  const user = pocketbase.authStore.model ?? dummyLoginUserInfo;
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-  // 쿼리 클라이언트 인스턴스 가져오기
-  const queryClient = useQueryClient();
-
-  // 쿼리 키
-  const queryKey = ['cooks', user.id];
-
-  // React Query를 사용한 데이터 쿼리(query) 요청
-  const { isLoading, error, data } = useQuery({
-    queryKey: queryKey,
-    queryFn: () => getcooks(user.id),
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  });
-
-  // React Query를 사용한 데이터 수정(mutation) 요청
-  const mutation = useMutation({
-    mutationFn: removeRecommend,
-    onMutate: async ({ recommendId }) => {
-      await queryClient.cancelQueries({ queryKey: queryKey });
-
-      const previousList = queryClient.getQueryData(queryKey);
-
-      queryClient.setQueryData(queryKey, (list) => {
-        return list.filter((item) => item.id !== recommendId);
-      });
-
-      return { previousList };
-    },
-    onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: queryKey });
-    },
-    onError: (error, removedLikeButton, context) => {
-      queryClient.setQueryData(queryKey, context.previousList);
-    },
-  });
-
-  const handleRemoveLikeButton = (recommendId, userId) => async () => {
-    mutation.mutate({
-      recommendId,
-      userId,
-    });
-  };
-
-  if (isLoading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (error) {
-    return <div role="alert">{error.toString()}</div>;
-  }
-
+function App() {
   return (
-    <ul className="">
-      {data?.map?.((item) => (
-        <li key={item.id} className="">
-          <button
-            type="button"
-            className=""
-            onClick={handleRemoveLikeButton(item.id, user.id)}
-          >
-            <LikeButton color="#C9ECFF" />
-          </button>
-        </li>
-      ))}
-    </ul>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/Likebutton">Likebutton</Link></li>
+          </ul>
+        </nav>
+
+        {/* A Route switch that gets rendered when you're at '/' */}
+        <Route path="/" exact component={HomePage} />
+        
+        {/* A Route switch that gets rendered when you're at '/Likebutton' */}
+        <Route path="/Likebutton" component={LikebuttonPage} />
+      </div>
+    </Router>
   );
 }
+
+function HomePage() {
+  return (
+    <div>Home Page</div> 
+  );
+}
+
+function LikebuttonPage() {
+  return (
+    <div>Likebutton Page</div> 
+  );
+}
+
+export default App;
 
 // import { useState } from 'react';
 

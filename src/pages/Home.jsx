@@ -6,12 +6,14 @@ function Home() {
 
   return(
     <>
-    <SearchInput searchType='menu'></SearchInput>
-      <h1 className='font-dohyeon'>내 재료</h1>
+    <div className='px-5 w-full max-w-[820px] m-auto'>
+      <SearchInput searchType='menu'></SearchInput>
+      <span className='font-dohyeon'>내 재료</span>
       <IngredientButtonSero></IngredientButtonSero>
       <Button type='button'>
         내 냉장고 속 재료로 요리하기
       </Button>
+      </div>
     </>
   )
 }

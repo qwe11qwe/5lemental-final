@@ -54,39 +54,37 @@ const toggleInputSearch = () => {
 
   return(
   <>
-    <div className='w-full max-w-[820px] m-auto'>
-      <div className='flex mt-10 ml-[20px] relative'>
-        <input
-          type='text'
-          role='searchbox'
-          placeholder={searchType === 'cook' ? '메뉴를 검색해주세요.' : '재료를 검색해주세요.'}
-          className="w-11/12 h-7 pl-1 placeholder:-text--fridge-input-gray font-nanum border-b-2 -border--fridge-gray focus:outline-none"
-          ref={inputRef}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') { toggleInputSearch(); }
-          }}
-        />
-        <button
-          type='button'
-          className='w-5 h-5 bg-search-icon my-auto ml-2 absolute right-[9%]'
-          onClick={toggleInputSearch}
-          aria-label='검색'
-          >
-        </button>
-      </div>
-      <div className='mt-4'>
-        {searchResult.length > 0 ? (
-          searchResult.sort().map((cook, index) => 
-            (
-              <ul key={index} className='ml-5 text-sm'>
-                <li>{cook}</li>
-              </ul>
-            )
+    <div className='flex mt-10 relative'>
+      <input
+        type='text'
+        role='searchbox'
+        placeholder={searchType === 'menu' ? '메뉴를 검색해주세요.' : '재료를 검색해주세요.'}
+        className="w-full h-7 pl-1 placeholder:-text--fridge-input-gray font-nanum border-b-2 -border--fridge-gray focus:outline-none"
+        ref={inputRef}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') { toggleInputSearch(); }
+        }}
+      />
+      <button
+        type='button'
+        className='w-5 h-5 bg-search-icon my-auto ml-2 absolute right-[1%]'
+        onClick={toggleInputSearch}
+        aria-label='검색'
+        >
+      </button>
+    </div>
+    <div className='mt-4'>
+      {searchResult.length > 0 ? (
+        searchResult.sort().map((cook, index) => 
+          (
+            <ul key={index} className='ml-5 text-sm'>
+              <li>{cook}</li>
+            </ul>
           )
-        ) : (
-            isSearched && <div className='text-center mt-9'>검색 결과가 없습니다.</div>
-        )}
-      </div>
+        )
+      ) : (
+          isSearched && <div className='text-center mt-9'>검색 결과가 없습니다.</div>
+      )}
     </div>
   </>
   )

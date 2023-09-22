@@ -36,32 +36,30 @@ function IngredientButtonSero () {
   }, []);
 
   return(
-    <div className='w-full max-w-[820px] m-auto'>
-      <Swiper
-        slidesPerView='auto'
-        spaceBetween={8}
-        freeMode={true}
-        modules={[FreeMode]}
-        className="mx-5 py-3"
-      >
-        {myIngredient.map((item) => (
-          <SwiperSlide
-            className="w-[78px] h-[95px] -bg--fridge-bg-gray border-none rounded-md flex flex-col justify-center self-center"
-            key={item.id}>
-            <div className="w-[62px] h-[62px] items-center mx-2">
-              <img
-                src={getPbImageURL(item,'photo')}
-                alt={item.name}
-                className='mx-auto'
-              />
-            </div>
-          <span className="font-dohyeon text-[12px] text-center mt-[6px]">
-            {item.name}
-          </span>
-        </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <Swiper
+      slidesPerView='auto'
+      spaceBetween={8}
+      freeMode={true}
+      modules={[FreeMode]}
+      className="py-3"
+    >
+      {myIngredient.map((item) => (
+        <SwiperSlide
+          className="w-[78px] h-[95px] -bg--fridge-bg-gray border-none rounded-md flex flex-col justify-center self-center"
+          key={item.id}>
+          <div className="w-[62px] h-[62px] items-center mx-2">
+            <img
+              src={getPbImageURL(item,'photo')}
+              alt={item.name}
+              className='mx-auto'
+            />
+          </div>
+        <span className="font-dohyeon text-[12px] text-center mt-[6px]">
+          {item.name}
+        </span>
+      </SwiperSlide>
+      ))}
+    </Swiper>
   )
 }
 

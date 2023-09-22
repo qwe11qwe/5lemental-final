@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import useCategoryStore from '@/store/category';
 
+// 스와이퍼
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper/modules';
+
 function IngredientItem() {
   const {
     selectedMenu,
@@ -41,21 +47,28 @@ function IngredientItem() {
 
   return (
     <>
-      <div className="flex gap-1 flex-wrap justify-center max-w-[500px]">
-        {ingredientsName.map((ingredient, index) => (
-          <div
-            key={index}
-            className="w-[55px] h-[74px] flex flex-col items-center"
-          >
-            {ingredientsImage[index] && (
-              <img src={ingredientsImage[index]} alt={ingredient} />
-            )}
+      <div className="w-full max-w-[820px] m-auto">
+        <Swiper
+          slidesPerView="auto"
+          spaceBetween={3}
+          freeMode={true}
+          modules={[FreeMode]}
+        >
+          {ingredientsName.map((ingredient, index) => (
+            <SwiperSlide
+              key={index}
+              className="w-[55px] h-[74px] flex flex-col items-center"
+            >
+              {ingredientsImage[index] && (
+                <img src={ingredientsImage[index]} alt={ingredient} />
+              )}
 
-            <div className="font-nanum max-w-[55px] h-4 mt-1 px-1 -bg--fridge-bg-gray rounded-md text-center text-xs truncate">
-              {ingredient}
-            </div>
-          </div>
-        ))}
+              <div className="font-nanum max-w-[55px] h-4 mt-1 px-1 -bg--fridge-bg-gray rounded-md text-center text-xs truncate">
+                {ingredient}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </>
   );

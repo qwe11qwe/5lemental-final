@@ -59,7 +59,7 @@ function RecipeDetail() {
             />
           </div>
           <IngredientItem />
-          <div className="recipeContainer mt-[14px] max-w-[500px] max-h-[250px] px-[15px] py-[20px] font-nanum font-semibold text-[14px] rounded-[10px] -bg--fridge-bg-gray">
+          <div className="recipeContainer mt-[14px] max-w-[500px] px-[15px] py-[20px] font-nanum font-semibold text-[14px] rounded-[10px] -bg--fridge-bg-gray">
             {recipe.split('\n').map((recipeLine, index) => (
               <p key={index}>{recipeLine}</p>
             ))}

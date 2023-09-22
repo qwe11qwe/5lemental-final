@@ -17,7 +17,7 @@ function Home() {
         <SeeAll/>
       </div>
       <MenuItem />
-      <Button type='button'>
+      <Button type='button' navigateTo='/fridgemenu'>
         내 냉장고 속 재료로 요리하기
       </Button>
     </div>

@@ -2,7 +2,11 @@ import pb from "@/api/pocketbase";
 import { useState, useEffect } from "react";
 import { getPbImageURL } from "@/utils/getPbImageURL"
 import { Link } from "react-router-dom";
-
+// 스와이퍼
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper/modules';
 
 function MenuItem() {
   // 전체 메뉴 정보
@@ -24,24 +28,31 @@ function MenuItem() {
   }, []);
 
   return (
-    <div className="flex gap-5 flex-wrap">
+    <Swiper
+    slidesPerView='auto'
+    spaceBetween={5}
+    freeMode={true}
+    modules={[FreeMode]}
+    className="py-3"
+    >
       {menu.map((item) => (
-        <Link
-          to="/recipedetail"
+        <SwiperSlide
           key={item}
           className="w-[133px] h-[157px]"
         >
-        <img
-          src={getPbImageURL(item,'photo')}
-          alt="{item.name}"
-          className="w-full h-[131px] rounded-[10px]"
-        />
-        <p className="inline-block rounded-[10px] mt-[5px] px-[10px] pt-[5px] pb-[4px] -bg--fridge-skyblue font-dohyeon text-[11px]">
-          {item.name}
-        </p>
-        </Link>
+          <Link to="/recipedetail">
+            <img
+              src={getPbImageURL(item,'photo')}
+              alt="{item.name}"
+              className="w-full h-[131px] rounded-[10px]"
+            />
+            <p className="inline-block rounded-[10px] mt-[5px] px-[10px] pt-[5px] pb-[4px] -bg--fridge-skyblue font-dohyeon text-[11px]">
+              {item.name}
+            </p>
+          </Link>
+        </SwiperSlide>
       ))}
-    </div>
+      </Swiper>
   );
 }
 

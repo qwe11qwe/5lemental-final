@@ -85,7 +85,7 @@ function SearchInput({ searchType }) {
         <button
           type="button"
           className="w-5 h-5 bg-search-icon my-auto ml-2 absolute right-[1%]"
-          onClick={toggleInputSearch}
+          onClick={handleInputSearch}
           aria-label="검색"
         ></button>
       </div>

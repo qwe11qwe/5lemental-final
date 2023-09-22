@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import MenuImgeitem from '@/components/MenuImgeitem';
 import { ClientResponseError } from 'pocketbase';
 
-function FoodlistButton() {
+function MenuImge() {
   const [data, setData] = useState([]); // 상태 변수 이름을 data로 변경
   const [status, setStatus] = useState('pending');
 
@@ -12,7 +12,7 @@ function FoodlistButton() {
     async function fetchFoodList() {
       try {
         const userList = await pb.collection('cooks').getFullList({
-          expand: 'key, description, user, image',
+          expand: 'key, description, user, image, summary',
         });
         setData(userList); // 데이터를 data 상태 변수에 할당
         setStatus('success'); // 데이터 로드가 완료되면 success 상태로 변경
@@ -36,8 +36,8 @@ function FoodlistButton() {
   }
 
   return (
-    <div className=" bg-slate-300">
-      <ul className=" ">
+    <div>
+      <ul>
         {data.map((item) => (
           <MenuImgeitem
             key={item.id}
@@ -52,4 +52,4 @@ function FoodlistButton() {
   );
 }
 
-export default FoodlistButton;
+export default MenuImge;

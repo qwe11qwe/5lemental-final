@@ -1,7 +1,8 @@
 import { getPbImageURL } from '@/utils/getPbImageURL';
+import Likebutton from './likeButton/Likebutton';
 import client from '@/api/pocketbase';
 
-export default function cookstItem({ item, user, stat }) {
+export default function MenuImgeitem({ item, user, stat }) {
   async function handle(stat, item, user) {
     //빼주기
     if (stat == 1) {
@@ -11,10 +12,6 @@ export default function cookstItem({ item, user, stat }) {
         await client.collection('users').update(user.id, {
           'ingredients_keys-': item.id,
         });
-        // 앱 상태 업데이트
-        // Zustand 사용자의 재료 변경사항을 화면에 반영
-        // 재료 목록 삭제
-        // removeUserIngredient(item.id);
       } catch (error) {
         console.error(error);
       }
@@ -26,17 +23,13 @@ export default function cookstItem({ item, user, stat }) {
         await client.collection('users').update(user.id, {
           'ingredients_keys+': item.id,
         });
-        // 앱 상태 업데이트
-        // Zustand 사용자의 재료 변경사항을 화면에 반영
-        // 재료 목록 추가
-        // addUserIngredient(item.id);
       } catch (error) {
         console.error(error);
       }
     }
   }
 
-  console.log(item);
+  // console.log(item);
 
   return (
     <li
@@ -45,22 +38,21 @@ export default function cookstItem({ item, user, stat }) {
         handle(stat, item, user);
       }}
     >
-      <button alt="@/RecipeDetail" className="fridge-bg-gray : F5F5F5 py-3">
-        <div className="">
-          <figure className="w-16 h-16 float-left ">
-            <img src={getPbImageURL(item, 'photo')} alt="" className="" />
-            {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
-          </figure>
-          <div className="bg-slate-400 rounded-md">
-            <span className="bg-white text-xs rounded-md grid ">
-              {item.name}
-            </span>
-            <span className="bg-blue-700 text-xs text-left ">
-              {item.description}
-            </span>
-          </div>
-        </div>
-      </button>
+      <div className="my-3 m-4  bg-gray-200 rounded-md h-24 overflow-auto">
+        <figure className="w-20 h-2 ">
+          <img
+            src={getPbImageURL(item, 'photo')}
+            alt=""
+            className="w-16 h-16 mx-4 my-4 float-left rounded-md"
+          />
+          {/* <p src={getPbImageURL(item, 'description')} alt=""></p> */}
+        </figure>
+        <span className="bg-white text-xs rounded-md mt-16 font-dohyeon ">
+          {item.name}
+        </span>
+        <span className="grid text-xs mt-2 mr-2">{item.summary}</span>
+        <Likebutton />
+      </div>
     </li>
   );
 }

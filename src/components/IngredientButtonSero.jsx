@@ -1,12 +1,17 @@
 import pb from '@/api/pocketbase';
-import { useState, useEffect } from "react";
-import { getPbImageURL } from "@/utils/getPbImageURL"
+import { useState, useEffect } from 'react';
+import { getPbImageURL } from '@/utils/getPbImageURL';
 import useAuthStore from '@/store/auth';
+// 스와이퍼
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper/modules';
 
-function IngredientButtonSero () {
+function IngredientButtonSero() {
   // 내 재료 정보
   const [myIngredient, setMyIngredient] = useState([]);
-
+  // 유저 정보
   const { user } = useAuthStore();
   console.log(user);
 
@@ -22,36 +27,40 @@ function IngredientButtonSero () {
           loginUser.expand.ingredients_keys
         );
         setMyIngredient(loginUser.expand.ingredients_keys);
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     fetchList();
   }, []);
 
-  return(
-    <div className='w-full max-w-[820px] m-auto'>
-      <div className='flex ml-5 gap-2'>
-        {myIngredient.map((item) => (
-          <div
-            className="w-[78px] h-[95px] -bg--fridge-secondary border-none rounded-md flex flex-col justify-center self-center"
-            key={item.id}>
-            <div className="w-[62px] h-[62px] items-center mx-2">
-              <img
-                src={getPbImageURL(item,'photo')}
-                alt={item.name}
-                className='w-full h-full'
-              />
-            </div>
+  return (
+    <Swiper
+      slidesPerView="auto"
+      spaceBetween={8}
+      freeMode={true}
+      modules={[FreeMode]}
+      className="py-3"
+    >
+      {myIngredient.map((item) => (
+        <SwiperSlide
+          className="w-[78px] h-[95px] -bg--fridge-bg-gray border-none rounded-md flex flex-col justify-center self-center"
+          key={item.id}
+        >
+          <div className="w-[62px] h-[62px] items-center mx-2">
+            <img
+              src={getPbImageURL(item, 'photo')}
+              alt={item.name}
+              className="mx-auto"
+            />
+          </div>
           <span className="font-dohyeon text-[12px] text-center mt-[6px]">
             {item.name}
           </span>
-        </div>
-        ))}
-      </div>
-    </div>
-  )
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
 }
 
-export default IngredientButtonSero
+export default IngredientButtonSero;

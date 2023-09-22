@@ -47,7 +47,7 @@ function IngredientItem() {
 
   return (
     <>
-      <div className="w-full max-w-[820px] m-auto">
+      <div className="flex justify-center w-full max-w-[500px] m-auto">
         <Swiper
           slidesPerView="auto"
           spaceBetween={3}
